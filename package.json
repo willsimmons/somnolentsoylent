@@ -1,0 +1,19 @@
+{
+  "name": "sembly",
+  "version": "1.0.0",
+  "description": "Drop pins to coordinate events",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "mocha specs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/somnolentsoylent/somnolentsoylent.git"
+  },
+  "author": "Spencer Lopez, Carlos Flores, Omar Mohamed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/somnolentsoylent/somnolentsoylent/issues"
+  },
+  "homepage": "https://github.com/somnolentsoylent/somnolentsoylent#readme"
+}
