@@ -1,3 +1,7 @@
+var eventsController = require('./controllers/eventsController');
+var friendController = require('./controllers/friendController');
+var userController = require('./controllers/userController');
+
 module.exports = function (app, express) {
   //Handle Auth and login/signup
   app.post('/api/users/login', userController.login);
