@@ -6,7 +6,7 @@ var eventSchema = new Schema({
   location: {
     type: [Number],
     index: '2dsphere'
-  }
+  },
   startTime: Date,
   endTime: Date,
   tags: [String],
