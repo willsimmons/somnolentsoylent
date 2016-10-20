@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt-nodejs');
 var SALT_WORK_FACTOR = 12;
 var Promise = require('bluebird');
 
-var UserSchema = new mongoose.Schema({
+var UserSchema = new Schema({
   id: Schema.Types.ObjectId,
   firstName: {
     type: String,
@@ -24,10 +24,10 @@ var UserSchema = new mongoose.Schema({
     required: true
   },
   salt: String,
-  friends: [Schema.ObjectId, ref: 'User'],
-  requests: [Schema.ObjectId, ref: 'User'],
-  saved: [Schema.Types.ObjectId, ref:'Event'],
-  hosting: [Schema.Types.ObjectId, ref:'Event'],
+  friends: [{type: Schema.ObjectId, ref: 'User'}],
+  requests: [{type: Schema.ObjectId, ref: 'User'}],
+  saved: [{type: Schema.Types.ObjectId, ref:'Event'}],
+  hosting: [{ type: Schema.Types.ObjectId, ref:'Event'}],
   photoUrl: String
 
 
