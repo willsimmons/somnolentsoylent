@@ -1,5 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var bluebird = require('bluebird');
+mongoose.Promise = bluebird;
 
 var app = express();
 

@@ -25,6 +25,7 @@ var UserSchema = new mongoose.Schema({
   },
   salt: String,
   friends: [Schema.ObjectId, ref: 'User'],
+  requests: [Schema.ObjectId, ref: 'User'],
   saved: [Schema.Types.ObjectId, ref:'Event'],
   hosting: [Schema.Types.ObjectId, ref:'Event'],
   photoUrl: String
