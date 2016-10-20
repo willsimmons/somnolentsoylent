@@ -4,12 +4,21 @@ var bcrypt = require('bcrypt-nodejs');
 var SALT_WORK_FACTOR = 12;
 var Promise = require('bluebird');
 
-//id is given should i still put it in?
 var UserSchema = new mongoose.Schema({
   id: Schema.Types.ObjectId,
-  firstName: String,
-  lastName: String,
-  email: String,
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true
+  },
   password: {
     type: String,
     required: true
