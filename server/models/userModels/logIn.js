@@ -1,4 +1,5 @@
 // logIn.js
+var Promise = require('bluebird');
 
 var User = require('../../schemas/userSchema')
 
@@ -6,21 +7,24 @@ var thisUser;
 
 //Add a new user to the database
 module.exports = (email, password) => {
-	User.findOne({'email': email})
+	return User.findOne({'email': email})
 	.then(user => {
-		// if (!user) {
-		// 	return 'User does not exist';
-		// }
+		if (!user) {
+			return new Promise((resolve,reject) => {
+				resolve('User does not exist');
+			}) 
+		}
 		thisUser = user;
 		return user.comparePasswords(password);
 	})
 	.then(match => {
-		console.log(match)
 		return new Promise( (resolve, reject) => {
-			if (match) {
+			if (match === 'User does not exist') {
+				resolve('User does not exist');
+			} else if (match) {
 				resolve(thisUser);
 			} else {
-				resolve('Incorrect Password')
+				resolve('Incorrect Password');
 			}
 		})
 	})

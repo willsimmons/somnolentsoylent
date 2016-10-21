@@ -44,7 +44,7 @@ describe('User Models', function() {
   describe('login', function(){
     it('should retrieve the user if the passwords match', function(done){
       userModels.logIn(testUser.email, testUser.password)
-      .then(function(user){
+      .then(function(user) {
         expect(user.firstName).to.equal('Test');
         done();
       })
@@ -57,7 +57,7 @@ describe('User Models', function() {
       });
     });
     it('should return "User does not exist" if the password is incorrect', function(done){
-      userModels.logIn(testUser.email, 'WAHHHPIZZAAWOOOO')
+      userModels.logIn('WOOGOOO', 'WAHHHPIZZAAWOOOO')
       .then(function(err) {
         expect(err).to.equal('User does not exist');
         done();
