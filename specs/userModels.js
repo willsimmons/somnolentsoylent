@@ -21,7 +21,7 @@ describe('User Models', function() {
   describe('add User', function() {
     it('should add a new user to the database', function(done) {
       userModels.addUser(testUser)
-      .then( () => {
+      .then(function() {
         return User.findOne({'email': 'test@test.com'}).exec()
       })
       .then(function(user) {
@@ -42,17 +42,26 @@ describe('User Models', function() {
   });
 
   describe('login', function(){
-    it('should retrieve the user if the passwords match', function(){
-      userModels.login(testUser.email, testUser.password)
+    it('should retrieve the user if the passwords match', function(done){
+      userModels.logIn(testUser.email, testUser.password)
       .then(function(user){
         expect(user.firstName).to.equal('Test');
+        done();
       })
     });
-    it('should return false if the password is incorrect', function(){
-      userModels.login(testUser.email, 'WAHHHPIZZAAWOOOO')
+    it('should return "Incorrect Password" if the password is incorrect', function(done){
+      userModels.logIn(testUser.email, 'WAHHHPIZZAAWOOOO')
       .then(function(err) {
-        expect(err).to.equal(false);
-      })
+        expect(err).to.equal('Incorrect Password');
+        done();
+      });
+    });
+    it('should return "User does not exist" if the password is incorrect', function(done){
+      userModels.logIn(testUser.email, 'WAHHHPIZZAAWOOOO')
+      .then(function(err) {
+        expect(err).to.equal('User does not exist');
+        done();
+      });
     });
   });
 });

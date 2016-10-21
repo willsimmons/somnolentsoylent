@@ -56,6 +56,13 @@ describe('User Controller', function() {
           .expect(400)
           .end(done);
     });
+    it('should send a 400 when user does not exist', function() {
+      request(app)
+          .post('/api/users/login')
+          .send({email: 'PIZZAAAA', password: 'LETSBOGOTOCHIPOGO'})
+          .expect(400)
+          .end(done);
+    });
     it('should send the user when the password is correct', function() {
       request(app)
           .post('/api/users/login')
