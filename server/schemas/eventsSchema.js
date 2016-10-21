@@ -1,10 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var eventSchema = new Schema({
-  id: {
-    type: Schema.Types.ObjectId,
-    required: true
-  },
+  id: Schema.Types.ObjectId,
   name: String,
   location: {
     type: [Number],
@@ -27,7 +24,10 @@ var eventSchema = new Schema({
 })
 
 eventSchema.pre('save', function (next) {
-  this.endTime = this.endTime || (this.startTime.getDate() + .25);
+  if(!this.endTime){
+    this.endTime = new Date(this.startTime.getTime());
+    this.endTime.setHours(this.endTime.getHours() + 6);
+  }
   next();
 })
 
