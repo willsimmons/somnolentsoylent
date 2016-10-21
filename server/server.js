@@ -6,7 +6,9 @@ mongoose.Promise = bluebird;
 var app = express();
 
 // connect to mongo database named "sembly"
-mongoose.connect('mongodb://localhost/sembly');	
+if (process.argv[2] === 'production') {
+  mongoose.connect('mongodb://localhost/sembly');		
+}
 
 // configure our server with all the middleware and routing
 require('./middleware.js')(app, express);
