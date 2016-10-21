@@ -18,18 +18,31 @@ describe('User Schema', function() {
     
     var currentUser = null;
 
-  
-
     afterEach(function(done){
-      //clear the user database
-      User.remove({}, function(err){
-        console.log('collection removed');
-      });
-
+    //clear the user database
+    User.remove({}, function(err){
       done();
     });
 
-    it('registers a new user with encrypted password', function(){
+    });
+
+    it('should make sure that the password in the database does not equal the string ', function(done){
+      var stringPassword = 'dropItLikeItsHot';
+      var newTestUser = new User({
+        firstName: 'Snoop',
+        lastName: 'Dogg',
+        email: 'foshizzle@dogg.com',
+        password: 'dropItLikeItsHot',
+      });
+
+      newTestUser.save()
+      .then(function(newUser){
+        expect(newUser.password).to.not.equal(stringPassword);
+        done();
+      });
+    });
+
+    it('should makes sure that compare password matches the hashed password with the String Version', function(done){
       var stringPassword = 'dropItLikeItsHot';
       var newTestUser = new User({
         firstName: 'Snoop',
@@ -39,46 +52,14 @@ describe('User Schema', function() {
       });
 
 
-      newTestUser.save().then(function(newUser){
-        expect(newUser.password).to.not.equal(stringPassword)
+      newTestUser.save()
+      .then(function(newUser){
+        return newUser.comparePasswords(stringPassword); 
+      })
+      .then(function(match){
+        expect(match).to.equal(true);
+        done();
       });
-
-      // console.log('wutttt');
-
-      // User.find({}, function(err, users){
-      //   if(err){
-      //     console.log(err);
-      //   } else {
-      //     console.log(users);
-      //   }
-      // })
     });
   });
 });
-
-
-//User Schema
-// id: Schema.Types.ObjectId,
-//   firstName: {
-//     type: String,
-//     required: true
-//   },
-//   lastName: {
-//     type: String,
-//     required: true
-//   },
-//   email: {
-//     type: String,
-//     unique: true,
-//     required: true
-//   },
-//   password: {
-//     type: String,
-//     required: true
-//   },
-//   salt: String,
-//   friends: [Schema.ObjectId, ref: 'User'],
-//   requests: [Schema.ObjectId, ref: 'User'],
-//   saved: [Schema.Types.ObjectId, ref:'Event'],
-//   hosting: [Schema.Types.ObjectId, ref:'Event'],
-//   photoUrl: String
