@@ -2,7 +2,8 @@
 
 var User = require('../../schemas/userSchema')
 
+//Add a new user to the database
 module.exports = (user) => {
-	//Add a new user to the database
-
+	var newUser = new User(user);
+	return newUser.save();
 }
