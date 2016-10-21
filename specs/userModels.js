@@ -15,7 +15,7 @@ describe('User Models', function() {
     User.remove({}).exec()
     .then(function(){
       done();
-    })
+    });
   });
 
   describe('add User', function() {
@@ -38,6 +38,21 @@ describe('User Models', function() {
         expect(error.message.includes('duplicate key error')).to.equal(true);
         done();
       });
+    });
+  });
+
+  describe('login', function(){
+    it('should retrieve the user if the passwords match', function(){
+      userModels.login(testUser.email, testUser.password)
+      .then(function(user){
+        expect(user.firstName).to.equal('Test');
+      })
+    });
+    it('should return false if the password is incorrect', function(){
+      userModels.login(testUser.email, 'WAHHHPIZZAAWOOOO')
+      .then(function(err) {
+        expect(err).to.equal(false);
+      })
     });
   });
 });

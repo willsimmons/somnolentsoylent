@@ -27,7 +27,7 @@ describe('User Controller', function() {
     after(function(){
       userModels.addUser.restore();
     })
-    it('should return a 301 with a success', function(done) {
+    it('should send a 201 with a success', function(done) {
       request(app)
           .post('/api/users/signup')
           .send(testUser)
@@ -37,7 +37,7 @@ describe('User Controller', function() {
     it('should call userModel.addUser', function() {
       expect(userModels.addUser.calledOnce).to.equal(true);
     });
-    it('should return a 400 when email already exists', function(done) {
+    it('should send a 400 when email already exists', function(done) {
       request(app)
           .post('/api/users/signup')
           .send(testUser)
@@ -48,8 +48,24 @@ describe('User Controller', function() {
 
 
 
-  // describe('login', function(){
-  //   it('should check if ')
-
-  // });
+  describe('LogIn Controller', function(){
+    it('should send a 400 when password is incorrect', function() {
+      request(app)
+          .post('/api/users/login')
+          .send({email: testUser.email, password: 'LETSBOGOTOCHIPOGO'})
+          .expect(400)
+          .end(done);
+    });
+    it('should send the user when the password is correct', function() {
+      request(app)
+          .post('/api/users/login')
+          .send({email: testUser.email, password: testUser.password})
+          .expect(201)
+          .expect(function(res){
+            expect(res.body.firstName).to.equal('Test');
+            expect(res.body.lastName).to.equal('User');
+          })
+          .end(done);
+    });
+  });
 });
