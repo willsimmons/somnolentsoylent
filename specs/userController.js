@@ -49,25 +49,25 @@ describe('User Controller', function() {
 
 
   describe('LogIn Controller', function(){
-    it('should send a 400 when password is incorrect', function() {
+    it('should send a 400 when password is incorrect', function(done) {
       request(app)
           .post('/api/users/login')
           .send({email: testUser.email, password: 'LETSBOGOTOCHIPOGO'})
           .expect(400)
           .end(done);
     });
-    it('should send a 400 when user does not exist', function() {
+    it('should send a 400 when user does not exist', function(done) {
       request(app)
           .post('/api/users/login')
           .send({email: 'PIZZAAAA', password: 'LETSBOGOTOCHIPOGO'})
           .expect(400)
           .end(done);
     });
-    it('should send the user when the password is correct', function() {
+    it('should send the user when the password is correct', function(done) {
       request(app)
           .post('/api/users/login')
           .send({email: testUser.email, password: testUser.password})
-          .expect(201)
+          .expect(200)
           .expect(function(res){
             expect(res.body.firstName).to.equal('Test');
             expect(res.body.lastName).to.equal('User');
