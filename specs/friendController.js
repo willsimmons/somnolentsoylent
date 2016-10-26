@@ -143,7 +143,7 @@ describe('Friend Controller', function() {
     })
     it('should with friends with a success', function(done) {
       request(app)
-          .post('/api/friends/removeFriend')
+          .post('/api/friends/getFriends')
           .send({userId: testId, search: 'friend'})
           .expect(200)
           .expect(function(res){
