@@ -94,13 +94,23 @@ describe('Event Models', function() {
     });
   });
 
-  xdescribe('remove Event', function() {
+  describe('remove Event', function() {
   	before(function(done){
+      this.timeout(4000);
   		eventModels.removeEvent(eventId)
   		.then(function(){
   			done();
   		})
   	})
+    it('should remove the event from the database', function(done) {
+      Event.findOne({'email': 'test@test.com'}).exec()
+      .then(function(event) {
+      	expect(!!event).to.equal(false);
+      	done();
+      })
+      .catch(function(error) {
+        done();
+      });
     it('should remove the event from the users saved events', function(done) {
       User.findOne({'email': 'test@test.com'}).exec()
       .then(function(user) {
@@ -115,15 +125,6 @@ describe('Event Models', function() {
         done();
       });
     });
-    it('should remove the event from the database', function(done) {
-      Event.findOne({'email': 'test@test.com'}).exec()
-      .then(function(event) {
-      	expect(!!event).to.equal(false);
-      	done();
-      })
-      .catch(function(error) {
-        done();
-      });
     });
   });
 

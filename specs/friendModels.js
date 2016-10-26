@@ -104,31 +104,37 @@ describe('Friend Models', function() {
   });
 
 
-  xdescribe('get Friends', function() {
+  describe('get Friends', function() {
     before(function(done){
       User.findOneAndUpdate({'email':'test@test.com'},{$push:{friends: loserId}}).exec()
       .then(function(){
         done();
       })
     })
+    after(function(done){
+      User.findOneAndUpdate({'email':'test@test.com'},{$pull:{friends: loserId}}).exec()
+      .then(function(){
+        done();
+      })
+    })
     it('should get all friends with no params', function(done) {
-      friendModels.searchFriends('')
-      .then(function(friends) {
-        expect(friends.length).to.equal(2);
+      friendModels.getFriends(testId, '')
+      .then(function(user) {
+        expect(user.friends.length).to.equal(2);
         done();
       });
     });
     it('should grab friends where the search param is included in the user\'s email', function(done) {
-      friendModels.searchFriends('lose')
-      .then(function(friends) {
-        expect(friends[0].email).to.equal('loser@test.com');
+      friendModels.getFriends(testId, 'lose')
+      .then(function(user) {
+        expect(user.friends[0].email).to.equal('loser@test.com');
         done();
       });
     });
     it('should grab friends where the search param is included in the user\'s name', function(done) {
-      friendModels.searchFriends('squa')
-      .then(function(friends) {
-        expect(friends[0].email).to.equal('friend@test.com');
+      friendModels.getFriends(testId, 'squa')
+      .then(function(user) {
+        expect(user.friends[0].email).to.equal('friend@test.com');
         done();
       });
     });
@@ -148,7 +154,7 @@ describe('Friend Models', function() {
         done();
       });
     });
-    it('should add the user from the friend\'s friend list' , function(done){
+    it('should remove the user from the friend\'s friend list' , function(done){
       User.findOne({'email': 'friend@test.com'}).exec()
       .then(function(user) {
         expect(user.friends.length).to.equal(0);

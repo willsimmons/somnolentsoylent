@@ -29,7 +29,29 @@ eventSchema.pre('save', function (next) {
     this.endTime.setHours(this.endTime.getHours() + 6);
   }
   next();
-})
+});
+
+eventSchema.pre('remove', function(next) {
+  var id = this._id;
+  this.invitedUsers.forEach( user => {
+    User.findOneAndUpdate({
+      '_id': user
+    }, {
+      $pull: {
+        'invitedTo': id
+      }
+    });
+  });
+  this.invitedUsers.forEach( user => {
+    User.findOneAndUpdate({
+      '_id': user
+    }, {
+      $pull: {
+        'saved': id
+      }
+    });
+  });
+});
 
 var Event = mongoose.model('Event', eventSchema);
 

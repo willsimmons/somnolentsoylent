@@ -133,7 +133,7 @@ describe('Friend Controller', function() {
     });
   });
 
-  xdescribe('get Friends', function() {
+  describe('get Friends', function() {
     before(function(done){
       sinon.spy(friendModels, 'getFriends');
       done();
@@ -143,7 +143,7 @@ describe('Friend Controller', function() {
     })
     it('should with friends with a success', function(done) {
       request(app)
-          .post('/api/friends/removeFriend')
+          .post('/api/friends/getFriends')
           .send({userId: testId, search: 'friend'})
           .expect(200)
           .expect(function(res){
