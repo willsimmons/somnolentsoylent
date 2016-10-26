@@ -28,6 +28,7 @@ var UserSchema = new Schema({
   requests: [{type: Schema.ObjectId, ref: 'User'}],
   saved: [{type: Schema.Types.ObjectId, ref:'Event'}],
   hosting: [{ type: Schema.Types.ObjectId, ref:'Event'}],
+  invitedTo: [{ type: Schema.Types.ObjectId, ref:'Event'}],
   photoUrl: String
 
 

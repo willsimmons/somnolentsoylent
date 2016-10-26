@@ -1,4 +1,5 @@
 module.exports = {
 	addUser: require('./addUser'),
-	logIn: require('./logIn')
+	logIn: require('./logIn'),
+	userSearch: require('./userSearch')
 }

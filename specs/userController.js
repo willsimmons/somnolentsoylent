@@ -5,7 +5,6 @@ var request = require('supertest');
 var userController = require('../server/controllers/userController');
 var userModels = require('../server/models/userModels');
 var User = require('../server/schemas/userSchema');
-var mongoose = require('mongoose');
 var app = require('../server/server');
 
 var testUser = {
@@ -46,8 +45,6 @@ describe('User Controller', function() {
     });
   });
 
-
-
   describe('LogIn Controller', function(){
     it('should send a 400 when password is incorrect', function(done) {
       request(app)
@@ -73,6 +70,28 @@ describe('User Controller', function() {
             expect(res.body.lastName).to.equal('User');
           })
           .end(done);
+    });
+  });
+
+  describe('get Users', function() {
+    before(function(done){
+      sinon.spy(userModels, 'userSearch');
+      done();
+    })
+    after(function(){
+      userModels.userSearch.restore();
+    })
+    it('should get friends with a success', function(done) {
+      request(app)
+          .get('/api/users/test')
+          .expect(200)
+          .expect(function(res){
+            expect(res.body.length).to.equal(1);
+          })
+          .end(done);
+    });
+    it('should call userModels.getUsers', function() {
+      expect(userModels.userSearch.calledOnce).to.equal(true);
     });
   });
 });
