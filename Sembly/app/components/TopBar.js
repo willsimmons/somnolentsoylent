@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  StatusBar,
+  TouchableOpacity,
   StyleSheet,
   Text,
   View,
@@ -8,13 +8,20 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons'
 // <Text style={styles.menu}>Menu</Text>
 export default class TopBar extends Component {
+  constructor(props){
+    super(props)
+  }
+
   render () {
     return (
       <View style={styles.container}>
-
-        <Icon name='menu'></Icon>
+        <TouchableOpacity onPress={this.props.showNavMenu}>
+          <Icon name='menu' style={styles.content}></Icon>
+        </TouchableOpacity>
         <Text style={styles.logo}>Sembly</Text>
-        <Text style={styles.sort}>Sort</Text>
+        <TouchableOpacity>
+          <Icon name='filter-list' style={styles.content}></Icon>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -31,10 +38,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     alignItems: 'center'
   },
-  menu: {
-    color: 'white',
-  },
-  sort: {
+  content: {
+    fontSize: 22,
     color: 'white',
   },
   logo: {
