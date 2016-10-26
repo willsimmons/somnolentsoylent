@@ -126,7 +126,7 @@ describe('Events Controller', function() {
     });
   });
 
-  xdescribe('end Event', function() {
+  describe('end Event', function() {
     before(function(done){
       sinon.spy(eventModels, 'removeEvent');
       done();

@@ -133,7 +133,7 @@ describe('Friend Controller', function() {
     });
   });
 
-  xdescribe('get Friends', function() {
+  describe('get Friends', function() {
     before(function(done){
       sinon.spy(friendModels, 'getFriends');
       done();

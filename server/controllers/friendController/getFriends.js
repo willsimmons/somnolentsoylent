@@ -6,9 +6,9 @@ module.exports = (req, res) => {
 		res.status(400).send('Invalid Input');
 		return;
 	}
-	friendModels.saveEvent(req.body.userId, req.body.search)
-	.then( friends => {
-		res.send(200).send(friends);
+	friendModels.getFriends(req.body.userId, req.body.search)
+	.then( user => {
+		res.status(200).send(user.friends);
 	})
 	.catch( error => {
 		console.log(error);
