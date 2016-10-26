@@ -35,7 +35,7 @@ describe('Event Model', function () {
         if (newEndTime < newStartTime){
           newEndTime+=24;
         }
-        var timeDifference = Math.abs(newEvent.endTime.getHours() - newEvent.startTime.getHours());
+        var timeDifference = newEvent.endTime.getHours() - newEvent.startTime.getHours();
         expect(timeDifference).to.equal(6);
       })
       .catch(function (err) {
