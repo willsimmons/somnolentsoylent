@@ -64,4 +64,22 @@ describe('User Models', function() {
       });
     });
   });
+
+  describe('user Search', function() {
+    it('should return users based on email', function(done) {
+      userModels.userSearch('test')
+      .then(function(users) {
+        expect(users[0].email).to.equal('test@test.com');
+        done();
+      });
+    });
+    it('should return users based on name', function(done) {
+      userModels.userSearch('User')
+      .then(function(users) {
+        expect(users[0].email).to.equal('test@test.com');
+        done();
+      });
+    });
+  });
+
 });

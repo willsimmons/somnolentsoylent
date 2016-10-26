@@ -9,8 +9,8 @@ mongoose.Promise = bluebird;
 describe('User Schema', function() {
 
   describe('User Schema', function() {
-    it('schema should have properties id, firstName, lastName, email, password, salt, friends, requests, saved, hosting, photoUrl', function() {
-      expect(User.schema.obj).to.have.all.keys(['id', 'firstName', 'lastName', 'email', 'password', 'salt', 'friends', 'requests', 'saved', 'hosting', 'photoUrl']);
+    it('schema should have properties id, firstName, lastName, email, password, salt, friends, requests, saved, hosting, invitedTo photoUrl', function() {
+      expect(User.schema.obj).to.have.all.keys(['id', 'firstName', 'lastName', 'email', 'password', 'salt', 'friends', 'requests','invitedTo', 'saved', 'hosting', 'photoUrl']);
     });
   });
 
