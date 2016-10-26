@@ -5,12 +5,14 @@ import {
   Text,
   View,
 } from 'react-native';
-
+import Icon from 'react-native-vector-icons/MaterialIcons'
+// <Text style={styles.menu}>Menu</Text>
 export default class TopBar extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <Text style={styles.menu}>Menu</Text>
+
+        <Icon name='menu'></Icon>
         <Text style={styles.logo}>Sembly</Text>
         <Text style={styles.sort}>Sort</Text>
       </View>
