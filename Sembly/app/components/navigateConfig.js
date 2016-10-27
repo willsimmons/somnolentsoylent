@@ -4,9 +4,9 @@ export default function _navigate(name){
         name: 'Profile'
       });
     }
-    if(name === 'Main'){
+    if(name === 'Map'){
       this.props.navigator.push({
-        name: 'Main'
+        name: 'Map'
       });
     }
     if(name === 'Feed'){
@@ -25,4 +25,3 @@ export default function _navigate(name){
       });
     }
 };
-

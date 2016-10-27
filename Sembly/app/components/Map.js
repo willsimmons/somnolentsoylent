@@ -9,9 +9,8 @@ import {
 } from 'react-native';
 
 import MapView from 'react-native-maps';
-import TopBar from './TopBar.js';
-import Icon from 'react-native-vector-icons/MaterialIcons'
-
+import OurDrawer from './OurDrawer.js';
+import _navigate from './navigateConfig.js';
 
 export default class Map extends Component {
   constructor (props) {
@@ -27,35 +26,37 @@ export default class Map extends Component {
   render () {
     if(this.state.loading){
       return (
-        <View>
-          <TopBar />
-          <Text style={styles.loading}>Loading...</Text>
-        </View>
+        <OurDrawer _navigate={ _navigate.bind(this)}>
+          <View>
+            <Text style={styles.loading}>Loading...</Text>
+          </View>
+        </OurDrawer>
       )
     }
     else {
       return (
-        <View>
-          <TopBar />
-          <MapView
-            showsUserLocation={true}
-            style={styles.map}
-            initialRegion={{
-              latitude: this.state.currentLoc.coords.latitude,
-              longitude: this.state.currentLoc.coords.longitude,
-              latitudeDelta: .04,
-              longitudeDelta: .02
-          }}>
-          {this.state.markers.map(marker => (
-            <MapView.Marker
-              key={marker.key}
-              coordinate={marker.latlng}
-              title={marker.title}
-              pinColor='blue'
-            />
-          ))}
-          </MapView>
-        </View>
+        <OurDrawer _navigate={ _navigate.bind(this)}>
+          <View>
+            <MapView
+              showsUserLocation={true}
+              style={styles.map}
+              initialRegion={{
+                latitude: this.state.currentLoc.coords.latitude,
+                longitude: this.state.currentLoc.coords.longitude,
+                latitudeDelta: .04,
+                longitudeDelta: .02
+            }}>
+            {this.state.markers.map(marker => (
+              <MapView.Marker
+                key={marker.key}
+                coordinate={marker.latlng}
+                title={marker.title}
+                pinColor='blue'
+              />
+            ))}
+            </MapView>
+          </View>
+        </OurDrawer>  
       )
     }
   }
