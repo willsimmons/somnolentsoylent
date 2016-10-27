@@ -17,7 +17,6 @@ import TopBar from './app/components/TopBar.js';
 
 export default class Sembly extends Component {
   render() {
-    console.log(MapView);
     return (
         <App />
     );
