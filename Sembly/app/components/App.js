@@ -11,6 +11,7 @@ import TopBar from './TopBar.js';
 import NavMenu from './NavMenu.js';
 import LoginPage from './LoginPage.js';
 import Main from './Main.js';
+import Map from './Map.js';
 import Invites from './Invites.js';
 import Profile from './Profile.js';
 import Feed from './Feed.js';
@@ -20,14 +21,31 @@ export default class App extends Component {
 
   renderScene(route, navigator){
     if(route.name === 'LoginPage'){
-      return <LoginPage navigator={navigator}/>   
+      return <LoginPage navigator={navigator}/>
     }
 
     if(route.name === 'Profile') {
       return <Profile navigator={navigator}/>
     }
-    if(route.name === 'Main') {
-      return <Main navigator={navigator}/>
+    if(route.name === 'Map') {
+      return <Map navigator={navigator} markers={[
+        {
+          key: 1,
+          latlng: {
+            latitude: 37.783711,
+            longitude: -122.398972
+          },
+          title: "Marker 1"
+        },
+        {
+          key: 2,
+          latlng: {
+            latitude: 37.785033,
+            longitude: -122.412662
+          },
+          title: "Marker 1"
+        }
+      ]}/>
     }
     if(route.name === 'Feed') {
       return <Feed navigator={navigator}/>
@@ -60,5 +78,3 @@ const styles = StyleSheet.create({
   container: {
   }
 });
-
-

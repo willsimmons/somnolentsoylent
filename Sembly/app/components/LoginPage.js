@@ -12,7 +12,7 @@ export default class LoginPage extends Component {
 
   _navigate() {
     this.props.navigator.push({
-        name: 'Main'
+        name: 'Map'
     });
   }
   render(){
@@ -22,7 +22,7 @@ export default class LoginPage extends Component {
           onPress={ () => this._navigate() }>
             <Text style={styles.loginButton}>LOGIN</Text>
         </TouchableOpacity>
-      </View>   
+      </View>
     );
   }
 
@@ -45,5 +45,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 });
-
-

@@ -22,7 +22,7 @@ export default class Menu extends Component {
 	    	<TouchableOpacity style={styles.firstListTouchable} onPress={()=> {this.props._navigate('Profile')}} >
 	      	<Text style={styles.listElem}>Profile</Text>
 	      </TouchableOpacity>
-    		<TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Main')}}>
+    		<TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Map')}}>
 	      	<Text style={styles.listElem}>Map</Text>
 	      </TouchableOpacity>
 	      <TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Feed')}}>
@@ -37,7 +37,7 @@ export default class Menu extends Component {
 	    </View>
     );
   }
-  
+
 }
 
 const styles = StyleSheet.create({
