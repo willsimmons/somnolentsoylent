@@ -15,7 +15,7 @@ export default class TopBar extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={this.props.showNavMenu}>
+        <TouchableOpacity onPress={this.props.openDrawer }>
           <Icon name='menu' style={styles.content}></Icon>
         </TouchableOpacity>
         <Text style={styles.logo}>Sembly</Text>
@@ -46,17 +46,5 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold'
-  },
-
-  loginButton: {
-    fontSize: 20,
-    color: 'white',
-    backgroundColor: 'red',
-    padding: 10,
-    alignItems: 'center',
-    fontWeight: 'bold',
-    borderRadius: 10,
-    justifyContent: 'center'
   }
-
 });

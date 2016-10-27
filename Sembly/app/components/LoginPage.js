@@ -9,15 +9,16 @@ import {
 } from 'react-native';
 
 export default class LoginPage extends Component {
+
   _navigate() {
     this.props.navigator.push({
-        name: 'MainTest'
-    })
+        name: 'Main'
+    });
   }
   render(){
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={{borderRadius: 10, backgroundColor: 'green'}}
+        <TouchableOpacity
           onPress={ () => this._navigate() }>
             <Text style={styles.loginButton}>LOGIN</Text>
         </TouchableOpacity>
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
   loginButton: {
     fontSize: 20,
     color: 'white',
-
+    backgroundColor: 'red',
     padding: 10,
     alignItems: 'center',
     fontWeight: 'bold',
