@@ -19,17 +19,20 @@ export default class Menu extends Component {
   render(){
     return (
     	<View>
-	    	<TouchableOpacity style={styles.firstListTouchable} onPress={()=> {this.props._navigate('Invites')}} >
-	      	<Text style={styles.listElem}>Main</Text>
+	    	<TouchableOpacity style={styles.firstListTouchable} onPress={()=> {this.props._navigate('Profile')}} >
+	      	<Text style={styles.listElem}>Profile</Text>
+	      </TouchableOpacity>
+    		<TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Main')}}>
+	      	<Text style={styles.listElem}>Map</Text>
+	      </TouchableOpacity>
+	      <TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Feed')}}>
+	      	<Text style={styles.listElem}>Feed</Text>
 	      </TouchableOpacity>
 	      <TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Invites')}}>
 	      	<Text style={styles.listElem}>Invites</Text>
 	      </TouchableOpacity>
-	      <TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Invites')}} >
+	      <TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Saved')}} >
 	      	<Text style={styles.listElem}>Saved</Text>
-	      </TouchableOpacity>
-	      <TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Invites')}} >
-	      	<Text style={styles.listElem}>Account</Text>
 	      </TouchableOpacity>
 	    </View>
     );

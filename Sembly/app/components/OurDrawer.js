@@ -24,8 +24,8 @@ export default class OurDrawer extends Component{
         content={<Menu _navigate={this.props._navigate}/>}
         tapToClose={true}
         open={false}
-        openDrawerOffset={0.4}
-        panCloseMask={0.4}
+        openDrawerOffset={0.3}
+        panCloseMask={0.3}
         closedDrawerOffset={-3}
         styles={drawerStyles}
         tweenHandler={(ratio) => ({
