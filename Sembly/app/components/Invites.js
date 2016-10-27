@@ -10,47 +10,35 @@ import {
 
 import Drawer from 'react-native-drawer';
 
+
 import TopBar from './TopBar.js';
+import OurDrawer from './OurDrawer.js';
 import Menu from './Menu.js';
 
 
-
 export default class Invites extends Component {
-  // _navigate(name) {
-  //   this.props.navigator.push({
-  //     name: 'Login',
-  //     passProps: {
-  //       name: name
-  //     }
-  //   })
-  // }
-  render(){
-    return (
-      <Drawer
-        ref={(ref) => this._drawer = ref}
-        type="overlay"
-        content={<Menu />}
-        tapToClose={true}
-        open={false}
-        openDrawerOffset={0.4}
-        panCloseMask={0.4}
-        closedDrawerOffset={-3}
-        styles={drawerStyles}
-        tweenHandler={(ratio) => ({
-                main: { opacity:(2-ratio)/2 }
-        })}>
-        {
+  constructor(props){
+    super(props);
+  }
+  _navigate(name) {
+    if(name === 'Invites'){
+      this.props.navigator.push({
+        name: 'Invites'
+      });
+    }
+  }
+
+    render(){
+      return (
+        <OurDrawer _navigate={this._navigate.bind(this)}>
           <View>
-            <TopBar openDrawer={() => {this._drawer.open()} }/>
-            <TouchableOpacity onPress={ () => this.props.navigator.pop() }>
-                <Text style={styles.button}>INVITES</Text>
+            <TouchableOpacity onPress={ () => this._navigate('Invites') }>
+              <Text style={styles.button}>Invites</Text>
             </TouchableOpacity>
           </View>  
-        }
-    </Drawer>
-      
-    );
-  }
+        </OurDrawer>
+      )
+    }
 };
 
  // <View>

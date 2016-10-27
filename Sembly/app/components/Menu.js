@@ -19,20 +19,17 @@ export default class Menu extends Component {
   render(){
     return (
     	<View>
-	    	<TouchableOpacity style={styles.firstListTouchable} onPress={()=>alert('pressed hello!!')} >
-	      	<Text style={styles.listElem}>Hello</Text>
+	    	<TouchableOpacity style={styles.firstListTouchable} onPress={()=> {this.props._navigate('Invites')}} >
+	      	<Text style={styles.listElem}>Main</Text>
 	      </TouchableOpacity>
-	      <TouchableOpacity style={styles.listTouchable} onPress={()=>alert('pressed bye!!')} >
-	      	<Text style={styles.listElem}>Bye</Text>
+	      <TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Invites')}}>
+	      	<Text style={styles.listElem}>Invites</Text>
 	      </TouchableOpacity>
-	      <TouchableOpacity style={styles.listTouchable} onPress={()=>alert('pressed!!')} >
-	      	<Text style={styles.listElem}>Bye</Text>
+	      <TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Invites')}} >
+	      	<Text style={styles.listElem}>Saved</Text>
 	      </TouchableOpacity>
-	      <TouchableOpacity style={styles.listTouchable} onPress={()=>alert('pressed!!')} >
-	      	<Text style={styles.listElem}>Bye</Text>
-	      </TouchableOpacity>
-	      <TouchableOpacity style={styles.listTouchable} onPress={()=>alert('pressed!!')} >
-	      	<Text style={styles.listElem}>Bye</Text>
+	      <TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Invites')}} >
+	      	<Text style={styles.listElem}>Account</Text>
 	      </TouchableOpacity>
 	    </View>
     );
