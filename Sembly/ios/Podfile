@@ -3,10 +3,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-
-target 'Sembly' do
-  pod 'RNVectorIcons', :path => 'node_modules/react-native-vector-icons'
-  
+target 'AirMapsExplorer' do
   pod 'React', path: '../node_modules/react-native', :subspecs => [
     'Core',
     'RCTActionSheet',
@@ -19,6 +16,8 @@ target 'Sembly' do
     'RCTVibration',
     'RCTWebSocket'
   ]
+  
+  pod 'RNVectorIcons', :path => 'node_modules/react-native-vector-icons'
 
   pod 'GoogleMaps'
   end

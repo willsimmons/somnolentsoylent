@@ -14,13 +14,11 @@ import {
 import NavMenu from './app/components/NavMenu.js';
 import App from './app/components/App.js';
 import TopBar from './app/components/TopBar.js';
-import MapView from 'react-native-maps'
 
 export default class Sembly extends Component {
   render() {
-    console.log(MapView);
     return (
-        <MapView style={styles.map} />
+        <App />
     );
   }
 }
@@ -42,9 +40,6 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-  map: {
-  ...StyleSheet.absoluteFillObject,
-  }
 });
 
 AppRegistry.registerComponent('Sembly', () => Sembly);
