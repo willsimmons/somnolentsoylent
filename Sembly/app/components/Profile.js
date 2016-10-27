@@ -14,31 +14,24 @@ import Drawer from 'react-native-drawer';
 import TopBar from './TopBar.js';
 import OurDrawer from './OurDrawer.js';
 import Menu from './Menu.js';
+import _navigate from './navigateConfig.js';
 
 
 export default class Profile extends Component {
   constructor(props){
     super(props);
   }
-  _navigate(name) {
-    if(name === 'Main'){
-      this.props.navigator.push({
-        name: 'Main'
-      });
-    }
+  render(){
+    return (
+      <OurDrawer _navigate={_navigate.bind(this)}>
+        <View>
+          <TouchableOpacity onPress={ () => _navigate('Main') }>
+            <Text style={styles.button}>Profile</Text>
+          </TouchableOpacity>
+        </View>  
+      </OurDrawer>
+    )
   }
-
-    render(){
-      return (
-        <OurDrawer _navigate={this._navigate.bind(this)}>
-          <View>
-            <TouchableOpacity onPress={ () => this._navigate('Main') }>
-              <Text style={styles.button}>Profile</Text>
-            </TouchableOpacity>
-          </View>  
-        </OurDrawer>
-      )
-    }
 };
 
  const drawerStyles = {
