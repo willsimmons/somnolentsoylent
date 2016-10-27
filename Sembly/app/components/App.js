@@ -10,7 +10,8 @@ import {
 import TopBar from './TopBar.js';
 import NavMenu from './NavMenu.js';
 import LoginPage from './LoginPage.js';
-import MainTest from './MainTest.js';
+import Main from './Main.js';
+import Invites from './Invites.js';
 
 export default class App extends Component {
 
@@ -19,8 +20,12 @@ export default class App extends Component {
       return <LoginPage navigator={navigator}/>   
     }
 
-    if(route.name === 'MainTest') {
-      return <MainTest navigator={navigator}/>
+    if(route.name === 'Main') {
+      return <Main navigator={navigator}/>
+    }
+
+    if(route.name === 'Invites') {
+      return <Invites navigator={navigator}/>
     }
   }
 
