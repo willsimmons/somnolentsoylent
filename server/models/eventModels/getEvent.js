@@ -1,9 +1,10 @@
-// removeEvent.js
+// getEvent.js
 var Event = require('../../schemas/eventsSchema');
 
 module.exports = (eventId) => {
 	return Event.findOne({'_id': eventId})
-	.then( event => {
-		event.remove();
-	});
+	.populate('invitedUsers')
+	.populate('checkedInUsers')
+	.populate('savedUsers')
+	.exec();
 }

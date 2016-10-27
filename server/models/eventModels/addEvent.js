@@ -12,11 +12,6 @@ module.exports = (event) => {
   		})
   		)
   })
-  // .then( success => {
-  // 	User.findOneAndUpdate({
-  // 		'_id': event.host
-  // 	})
-  // })
 }
 
 

@@ -4,8 +4,8 @@ var Event = require('../server/schemas/eventsSchema.js');
 var mongoose = require('mongoose');
 
 describe('Event Schema', function () {
-  it('schema should have properties id, name, location, startTime, endTime, tags, invitedUsers, checkedInUsers, visibility and savedUsers', function() {
-    expect(Event.schema.obj).to.have.all.keys(['id', 'name', 'location', 'startTime', 'endTime', 'tags', 'invitedUsers', 'checkedInUsers', 'visibility', 'savedUsers']);
+  it('schema should have properties id, name, location, startTime, endTime, tags, invitedUsers, checkedInUsers, image, visibility and savedUsers', function() {
+    expect(Event.schema.obj).to.have.all.keys(['id', 'name', 'location', 'startTime', 'endTime', 'tags','image', 'invitedUsers', 'checkedInUsers', 'visibility', 'savedUsers']);
   });
 });
 
@@ -19,11 +19,8 @@ describe('Event Model', function () {
     event.save()
       .then(function (newEvent) {
         expect(newEvent.endTime.getDate()).to.equal(newEndTime.getDate());
+        done();
       })
-      .catch(function (err) {
-        console.error(err);
-      })
-    done();
   });
   it('should set an endTime 6 hours after startTime, if no endTime is set', function(done) {
     var eventDataWithoutTime = {name:'Basketball', location: [82.894, 47.7749], tags:['fun', 'sports']};
@@ -35,12 +32,9 @@ describe('Event Model', function () {
         if (newEndTime < newStartTime){
           newEndTime+=24;
         }
-        var timeDifference = newEvent.endTime.getHours() - newEvent.startTime.getHours();
+        var timeDifference = newEndTime - newStartTime;
         expect(timeDifference).to.equal(6);
+        done();
       })
-      .catch(function (err) {
-        console.error(err);
-      })
-    done();
   });
 });

@@ -126,6 +126,136 @@ describe('Events Controller', function() {
     });
   });
 
+  describe('get Events', function() {
+    before(function(done){
+      sinon.spy(eventModels, 'getEvents');
+      done();
+    })
+    after(function(){
+      eventModels.getEvents.restore();
+    })
+    it('should send a 200 with a success', function(done) {
+      request(app)
+          .post('/api/events/location')
+          .send({location: [82.894, 47.7749]})
+          .expect(200)
+          .end(done);
+    });
+    it('should call eventModels.getEvents', function() {
+      expect(eventModels.getEvents.calledOnce).to.equal(true);
+    });
+    it('should send a 400 with bad input', function(done) {
+      request(app)
+          .post('/api/events/location')
+          .send({'pizza': 'SQUERP SQUERRPP'})
+          .expect(400)
+          .end(done);
+    });
+  });
+
+  describe('get Bundle', function() {
+    before(function(done){
+      sinon.spy(eventModels, 'bundle');
+      done();
+    })
+    after(function(){
+      eventModels.bundle.restore();
+    })
+    it('should send a 200 with a success', function(done) {
+      request(app)
+          .post('/api/events/bundle')
+          .send({location: [82.894, 47.7749], userId: userId})
+          .expect(200)
+          .expect(function(res){
+            expect(res.body.length).to.equal(1);
+          })
+          .end(done);
+    });
+    it('should call eventModels.bundle', function() {
+      expect(eventModels.bundle.calledOnce).to.equal(true);
+    });
+    it('should send a 400 with bad input', function(done) {
+      request(app)
+          .post('/api/events/bundle')
+          .send({'pizza': 'SQUERP SQUERRPP'})
+          .expect(400)
+          .end(done);
+    });
+  });
+
+  describe('get Invited', function() {
+    before(function(done){
+      sinon.spy(eventModels, 'getInvited');
+      done();
+    })
+    after(function(){
+      eventModels.getInvited.restore();
+    })
+    it('should send a 200 with a success', function(done) {
+      request(app)
+          .post('/api/events/invited')
+          .send({userId: userId})
+          .expect(200)
+          .end(done);
+    });
+    it('should call eventModels.getInvited', function() {
+      expect(eventModels.getInvited.calledOnce).to.equal(true);
+    });
+    it('should send a 400 with bad input', function(done) {
+      request(app)
+          .post('/api/events/invited')
+          .send({'pizza': 'SQUERP SQUERRPP'})
+          .expect(400)
+          .end(done);
+    });
+  });
+
+  describe('get Saved', function() {
+    before(function(done){
+      sinon.spy(eventModels, 'getSaved');
+      done();
+    })
+    after(function(){
+      eventModels.getSaved.restore();
+    })
+    it('should send a 200 with a success', function(done) {
+      request(app)
+          .post('/api/events/saved')
+          .send({userId: userId})
+          .expect(200)
+          .end(done);
+    });
+    it('should call eventModels.getSaved', function() {
+      expect(eventModels.getSaved.calledOnce).to.equal(true);
+    });
+    it('should send a 400 with bad input', function(done) {
+      request(app)
+          .post('/api/events/saved')
+          .send({'pizza': 'SQUERP SQUERRPP'})
+          .expect(400)
+          .end(done);
+    });
+  });
+
+  describe('get Event', function() {
+    before(function(done){
+      sinon.spy(eventModels, 'getEvent');
+      done();
+    })
+    after(function(){
+      eventModels.getEvent.restore();
+    })
+    it('should send a 200 with a success', function(done) {
+      request(app)
+          .get('/api/events/'+ eventId)
+          .expect(200)
+          .end(done);
+    });
+    it('should call eventModels.getEvent', function() {
+      expect(eventModels.getEvent.calledOnce).to.equal(true);
+    });
+  });
+
   describe('end Event', function() {
     before(function(done){
       sinon.spy(eventModels, 'removeEvent');

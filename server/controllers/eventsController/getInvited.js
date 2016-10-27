@@ -1,13 +1,15 @@
+// getInvited.js
+
 var eventModels = require('../../models/eventModels');
 
 module.exports = (req, res) => {
-	if (!req.body.location) {
+	if (!req.body.userId) {
 		res.status(400).send('Invalid Input');
 		return;
 	}
-	eventModels.getEvents(req.body.location)
-	.then( events => {
-		res.status(200).send(events);
+	eventModels.getInvited(req.body.userId)
+	.then( user => {
+		res.status(200).send(user.invitedTo);
 	})
 	.catch( error => {
 		console.log(error);

@@ -5,7 +5,8 @@
   "main": "server/server.js",
   "scripts": {
     "test": "mocha ./specs",
-    "start": "node server/server.js production"
+    "start": "node server/server.js production",
+    "populate": "node testData.js"
   },
   "repository": {
     "type": "git",

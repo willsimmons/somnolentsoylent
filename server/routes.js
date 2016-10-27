@@ -18,9 +18,13 @@ module.exports = function (app, express) {
   app.post('/api/friends/removeFriend', friendController.removeFriend);
 
   //Handle events requests
-  app.get('/api/events', eventsController.getEvents);
+  app.get('/api/events/:eventId', eventsController.getEvent);
   app.post('/api/events', eventsController.addEvent);
   app.post('/api/events/saveEvent', eventsController.saveEvent);
   app.post('/api/events/checkIn', eventsController.checkIn);
+  app.post('/api/events/bundle', eventsController.getBundle);
+  app.post('/api/events/saved', eventsController.getSaved);
+  app.post('/api/events/invited', eventsController.getInvited);
+  app.post('/api/events/location', eventsController.getEvents);
   app.post('/api/events/endEvent', eventsController.endEvent);
 };

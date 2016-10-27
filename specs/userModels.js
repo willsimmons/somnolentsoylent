@@ -31,9 +31,6 @@ describe('User Models', function() {
     });
     it('should throw an error when email already exists', function(done) {
       userModels.addUser(testUser)
-      .then(function() {
-        return User.findOne({'email': 'test@test.com'}).exec()
-      })
       .catch(function(error) {
         expect(error.message.includes('duplicate key error')).to.equal(true);
         done();
