@@ -11,6 +11,7 @@ import {
 import Drawer from 'react-native-drawer';
 
 import TopBar from './TopBar.js';
+import OurDrawer from './OurDrawer.js';
 import Menu from './Menu.js';
 
 
@@ -20,40 +21,74 @@ export default class Main extends Component {
     super(props);
   }
   _navigate(name) {
+    if(name === 'Profile'){
+      this.props.navigator.push({
+        name: 'Profile'
+      });
+    }
+    if(name === 'Main'){
+      this.props.navigator.push({
+        name: 'Main'
+      });
+    }
+    if(name === 'Feed'){
+      this.props.navigator.push({
+        name: 'Feed'
+      });
+    }
     if(name === 'Invites'){
       this.props.navigator.push({
         name: 'Invites'
       });
     }
+    if(name === 'Saved'){
+      this.props.navigator.push({
+        name: 'Saved'
+      });
+    }
+   
   }
-  render(){
-    return (
-      <Drawer
-        ref={(ref) => this._drawer = ref}
-        type="overlay"
-        content={<Menu />}
-        tapToClose={true}
-        open={false}
-        openDrawerOffset={0.4}
-        panCloseMask={0.4}
-        closedDrawerOffset={-3}
-        styles={drawerStyles}
-        tweenHandler={(ratio) => ({
-                main: { opacity:(2-ratio)/2 }
-        })}>
-        {
+
+    render(){
+      return (
+        <OurDrawer _navigate={this._navigate.bind(this)}>
           <View>
-            <TopBar openDrawer={() => {this._drawer.open()} }/>
-            <TouchableOpacity onPress={ () => this._navigate('Invites') }>
-                <Text style={styles.button}>MAIN TEST</Text>
+            <TouchableOpacity onPress={ () => this._navigate('Main') }>
+              <Text style={styles.button}>MAIN TEST</Text>
             </TouchableOpacity>
           </View>  
-        }
-    </Drawer>
-      
-    );
-  }
+        </OurDrawer>
+      )
+    }
 };
+  // }
+  // render(){
+  //   return (
+  //     <Drawer
+  //       ref={(ref) => this._drawer = ref}
+  //       type="overlay"
+  //       content={<Menu _navigate={this._navigate.bind(this)}/>}
+  //       tapToClose={true}
+  //       open={false}
+  //       openDrawerOffset={0.4}
+  //       panCloseMask={0.4}
+  //       closedDrawerOffset={-3}
+  //       styles={drawerStyles}
+  //       tweenHandler={(ratio) => ({
+  //               main: { opacity:(2-ratio)/2 }
+  //       })}>
+  //       {
+  //         <View>
+  //           <TopBar openDrawer={() => {this._drawer.open()} }/>
+  //           <TouchableOpacity onPress={ () => this._navigate('Invites') }>
+  //               <Text style={styles.button}>MAIN TEST</Text>
+  //           </TouchableOpacity>
+  //         </View>  
+  //       }
+  //   </Drawer>
+      
+  //   );
+//};
 
  // <View>
  //        <TopBar />

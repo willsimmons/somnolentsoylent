@@ -16,16 +16,11 @@ import OurDrawer from './OurDrawer.js';
 import Menu from './Menu.js';
 
 
-export default class Invites extends Component {
+export default class Saved extends Component {
   constructor(props){
     super(props);
   }
   _navigate(name) {
-    if(name === 'Invites'){
-      this.props.navigator.push({
-        name: 'Invites'
-      });
-    }
     if(name === 'Main'){
       this.props.navigator.push({
         name: 'Main'
@@ -38,7 +33,7 @@ export default class Invites extends Component {
         <OurDrawer _navigate={this._navigate.bind(this)}>
           <View>
             <TouchableOpacity onPress={ () => this._navigate('Main') }>
-              <Text style={styles.button}>Invites</Text>
+              <Text style={styles.button}>Saved</Text>
             </TouchableOpacity>
           </View>  
         </OurDrawer>

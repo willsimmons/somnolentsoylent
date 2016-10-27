@@ -12,6 +12,9 @@ import NavMenu from './NavMenu.js';
 import LoginPage from './LoginPage.js';
 import Main from './Main.js';
 import Invites from './Invites.js';
+import Profile from './Profile.js';
+import Feed from './Feed.js';
+import Saved from './Saved.js';
 
 export default class App extends Component {
 
@@ -20,12 +23,20 @@ export default class App extends Component {
       return <LoginPage navigator={navigator}/>   
     }
 
+    if(route.name === 'Profile') {
+      return <Profile navigator={navigator}/>
+    }
     if(route.name === 'Main') {
       return <Main navigator={navigator}/>
     }
-
+    if(route.name === 'Feed') {
+      return <Feed navigator={navigator}/>
+    }
     if(route.name === 'Invites') {
       return <Invites navigator={navigator}/>
+    }
+    if(route.name === 'Saved') {
+      return <Saved navigator={navigator}/>
     }
   }
 
