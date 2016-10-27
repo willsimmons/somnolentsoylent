@@ -46,5 +46,17 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold'
+  },
+
+  loginButton: {
+    fontSize: 20,
+    color: 'white',
+    backgroundColor: 'red',
+    padding: 10,
+    alignItems: 'center',
+    fontWeight: 'bold',
+    borderRadius: 10,
+    justifyContent: 'center'
   }
+
 });
