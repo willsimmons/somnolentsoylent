@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var User = require('./userSchema');
 var eventSchema = new Schema({
   id: Schema.Types.ObjectId,
   name: String,
@@ -13,12 +14,13 @@ var eventSchema = new Schema({
     default: Date.now
   },
   endTime: Date,
+  image: String,
   tags: [String],
   invitedUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   checkedInUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   visibility: {
     type: String,
-    default: 'Public'
+    default: 'public'
   },
   savedUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 })
@@ -40,17 +42,18 @@ eventSchema.pre('remove', function(next) {
       $pull: {
         'invitedTo': id
       }
-    });
-  });
-  this.invitedUsers.forEach( user => {
+    }).exec()
+  })
+  this.savedUsers.forEach( user => {
     User.findOneAndUpdate({
       '_id': user
     }, {
       $pull: {
         'saved': id
       }
-    });
+    }).exec();
   });
+  next();
 });
 
 var Event = mongoose.model('Event', eventSchema);
