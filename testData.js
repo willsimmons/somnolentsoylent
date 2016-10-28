@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 var User = require('./server/schemas/userSchema');
 var Event = require('./server/schemas/eventsSchema');
+var eventModels = require('./server/models/eventModels')
 mongoose.Promise = require('bluebird');
 
 mongoose.connect('mongodb://localhost/sembly');
@@ -99,11 +100,15 @@ mongoose.connection.on('connected', () => {
     events[0].invitedUsers = userIds;
     events[1].invitedUsers = userIds;
     events[4].invitedUsers = userIds;
-    events = events.map( event => new Event(event));
-    return Event.create(events);
+    return Promise.all(events.map(event => eventModels.addEvent(event)));
   })
   .then(events => {
-    console.log(events[0])
+    return Event.findOne({'name': 'Basketball'})
+  })
+  .then(event => {
+    return eventModels.saveEvent(event._id, users[0]._id)
+  })
+  .then( success => {
     console.log('Database populated');
     process.exit();
   })
