@@ -24,11 +24,9 @@ export default class Feed extends Component {
   }
   render(){
     return (
-      <OurDrawer topBarName={'Feed'} _navigate={_navigate.bind(this)}>
+      <OurDrawer topBarFilterVisible={false} topBarName={'Feed'} _navigate={_navigate.bind(this)}>
         <View>
-          <TouchableOpacity onPress={ () => _navigate('Main') }>
-            <Text style={styles.button}>Feed</Text>
-          </TouchableOpacity>
+          
         </View>  
       </OurDrawer>
     )

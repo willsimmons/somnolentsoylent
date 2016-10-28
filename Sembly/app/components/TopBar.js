@@ -20,7 +20,7 @@ export default class TopBar extends Component {
         </TouchableOpacity>
         <Text style={styles.logo}>{this.props.topBarName ? this.props.topBarName : 'Sembly'}</Text>
         <TouchableOpacity>
-          <Icon name='filter-list' style={styles.content}></Icon>
+          { this.props.topBarFilterVisible ? <Icon name='filter-list' style={styles.content}></Icon> : <Text></Text> }
         </TouchableOpacity>
       </View>
     )

@@ -23,11 +23,9 @@ export default class Saved extends Component {
   }
   render(){
     return (
-      <OurDrawer _navigate={_navigate.bind(this)}>
+      <OurDrawer topBarName={'Saved'} _navigate={_navigate.bind(this)}>
         <View>
-          <TouchableOpacity onPress={ () => _navigate('Main') }>
-            <Text style={styles.button}>Saved</Text>
-          </TouchableOpacity>
+          
         </View>  
       </OurDrawer>
     )

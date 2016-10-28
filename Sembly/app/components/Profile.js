@@ -23,11 +23,9 @@ export default class Profile extends Component {
   }
   render(){
     return (
-      <OurDrawer _navigate={_navigate.bind(this)}>
+      <OurDrawer topBarName={'Profile'} _navigate={_navigate.bind(this)}>
         <View>
-          <TouchableOpacity onPress={ () => _navigate('Main') }>
-            <Text style={styles.button}>Profile</Text>
-          </TouchableOpacity>
+          
         </View>  
       </OurDrawer>
     )

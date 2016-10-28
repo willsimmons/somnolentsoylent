@@ -33,7 +33,7 @@ export default class OurDrawer extends Component{
         tweenHandler={(ratio) => ({
                 main: { opacity:(2-ratio)/2 }
         })}>
-         <TopBar topBarName={this.props.topBarName} openDrawer={() => {this._drawer.open()} }/>
+         <TopBar topBarName={this.props.topBarName} topBarFilterVisible={this.props.topBarFilterVisible} openDrawer={() => {this._drawer.open()} }/>
        	{this.props.children}
       </Drawer>
     );
