@@ -16,7 +16,7 @@ var users = [
     lastName: 'Franklin',
     email: 'spencer@test.com',
     password: 'test',
-    photoUrl: 'http://a1.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,q_80,w_620/MTE1ODA0OTcxNjMyNzg5MDA1.jpg'
+    photoUrl: 'http://www.cutestpaw.com/wp-content/uploads/2015/04/Doug-the-Pug.png'
   },
   {
     firstName: 'Omar',
