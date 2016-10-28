@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import MapView from 'react-native-maps';
+import NewEventModal from './NewEventModal.js';
 import OurDrawer from './OurDrawer.js';
 import _navigate from './navigateConfig.js';
 import NewEventFab from './NewEventFab.js';
@@ -16,7 +17,11 @@ import NewEventFab from './NewEventFab.js';
 export default class Map extends Component {
   constructor (props) {
     super(props);
-    this.state = {loading: true, markers: null};
+    this.state = {
+      loading: true,
+      markers: null,
+      modalVisible: false
+    };
   }
   componentWillMount () {
     let context = this;
@@ -37,7 +42,6 @@ export default class Map extends Component {
           return data.json()
         })
         .then(data => {
-          console.log(data);
           context.setState({markers: data})
           context.setState({loading: false})
         })
@@ -47,10 +51,13 @@ export default class Map extends Component {
     });
 
   }
+  toggleModalVisibility () {
+    this.setState({modalVisible: !this.state.modalVisible})
+  }
   render () {
     if(this.state.loading){
       return (
-        <OurDrawer _navigate={ _navigate.bind(this)}>
+        <OurDrawer topBarFilterVisible={true} topBarName={'Map'} _navigate={ _navigate.bind(this)}>
           <View>
             <Text style={styles.loading}>Loading...</Text>
           </View>
@@ -59,7 +66,7 @@ export default class Map extends Component {
     }
     else {
       return (
-        <OurDrawer _navigate={ _navigate.bind(this)}>
+        <OurDrawer topBarFilterVisible={true} topBarName={'Map'} _navigate={ _navigate.bind(this)}>
           <View>
             <MapView
               showsUserLocation={true}
@@ -85,7 +92,8 @@ export default class Map extends Component {
               )
             })}
             </MapView>
-            <NewEventFab/>
+            <NewEventFab onPress={this.toggleModalVisibility.bind(this)}/>
+            <NewEventModal visibility={this.state.modalVisible}/>
           </View>
         </OurDrawer>
       )
