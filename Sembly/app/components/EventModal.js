@@ -16,8 +16,8 @@ export default class EventModal extends Component {
     super(props);
     this.state = {visible: false, loading: true};
   }
-  componentDidMount() {
-  	fetch('http://localhost:3000/api/events/' + this.props.event._id)
+  getEvent() {
+  	fetch('http://localhost:3000/api/events/' + this.props.event)
     .then(response => {
       return response.json();
     })
@@ -28,13 +28,18 @@ export default class EventModal extends Component {
       console.log(error);
     });
   }
+  getRender () {
+  	if (this.state.loading === true) {
+  		return 'sup'
+  	}
+  }
   render () {
-    // let context = this;
+    let context = this;
     return (
-      <Modal ref={'newEventModal'} style={styles.modal} isOpen={this.state.visible}>
+      <Modal ref={'EventModal'} style={styles.modal} isOpen={this.props.visibility}>
         <View style={styles.container}>
-          <Text>Create a New Event!</Text>
-          <TouchableOpacity onPress={() => this.refs.newEventModal.close()}>
+          <Text>This an Event!</Text>
+          <TouchableOpacity onPress={() => context.refs.EventModal.close()}>
             <Icon style={styles.closeButton} name='close'/>
           </TouchableOpacity>
         </View>

@@ -9,7 +9,9 @@ import {
 } from 'react-native';
 
 import Drawer from 'react-native-drawer';
-
+import NewEventModal from './NewEventModal.js';
+import EventModal from './EventModal.js';
+import NewEventFab from './NewEventFab.js';
 
 import TopBar from './TopBar.js';
 import OurDrawer from './OurDrawer.js';
@@ -22,7 +24,11 @@ import _navigate from './navigateConfig.js';
 export default class Feed extends Component {
   constructor(props){
     super(props);
-    this.state = {loading: true}
+    this.state = {
+      loading: true,
+      eventModal: false,
+      addEventModal: false
+    }
   }
   componentWillMount() {
     if (this.props.page === 'bundle') {
@@ -33,6 +39,12 @@ export default class Feed extends Component {
     } else if (this.props.page === 'saved') {
       this.getSaved();
     }
+  }
+  openEvent(eventId) {
+    this.setState({eventModal: true, eventId: eventId, addEventModal: false});
+  }
+  openModal () {
+    this.setState({addEventModal: true, eventModal:false});
   }
   getInvited() {
     fetch('http://localhost:3000/api/events/invited',{
@@ -95,8 +107,11 @@ export default class Feed extends Component {
     return (
       <OurDrawer topBarFilterVisible={false} topBarName={'Feed'} _navigate={_navigate.bind(this)}>
         <View>
-          {this.state.events.map( (event, index) => <EventCard event={event} index={index}/>)}
-        </View>  
+          {this.state.events.map( (event, index) => <EventCard openModal={this.openEvent.bind(this)} event={event} index={index}/>)}
+        </View>
+        <NewEventFab onPress={this.openModal.bind(this)}/> 
+        <EventModal visibility={this.state.eventModal} event={this.state.eventId}/>
+        <NewEventModal visibility={this.state.addEventModal}/>
       </OurDrawer>
     )
   }
