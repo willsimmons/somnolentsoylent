@@ -22,7 +22,7 @@ import _navigate from './navigateConfig.js';
 export default class Feed extends Component {
   constructor(props){
     super(props);
-    this.state = {loading: true, userId: '5812c51bfe439c161fcdae44'}
+    this.state = {loading: true}
   }
   componentWillMount() {
     if (this.props.page === 'bundle') {
@@ -38,7 +38,7 @@ export default class Feed extends Component {
     fetch('http://localhost:3000/api/events/invited',{
       method: 'POST',
       headers: { "Content-Type" : "application/json" },
-      body: JSON.stringify({userId: this.state.userId})
+      body: JSON.stringify({userId: this.props.user._id})
     })
     .then(response => {
       return response.json();
@@ -54,7 +54,7 @@ export default class Feed extends Component {
     fetch('http://localhost:3000/api/events/saved',{
       method: 'POST',
       headers: { "Content-Type" : "application/json" },
-      body: JSON.stringify({userId: this.state.userId})
+      body: JSON.stringify({userId: this.props.user._id})
     })
     .then(response => {
       return response.json();
@@ -70,7 +70,7 @@ export default class Feed extends Component {
     fetch('http://localhost:3000/api/events/bundle',{
       method: 'POST',
       headers: { "Content-Type" : "application/json" },
-      body: JSON.stringify({userId: this.state.userId, location: [-122.4075, 37.7878]})
+      body: JSON.stringify({userId: this.props.user._id, location: this.props.mongoLocation})
     })
     .then(response => {
       return response.json();

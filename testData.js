@@ -2,7 +2,8 @@
 var mongoose = require('mongoose');
 var User = require('./server/schemas/userSchema');
 var Event = require('./server/schemas/eventsSchema');
-var eventModels = require('./server/models/eventModels')
+var eventModels = require('./server/models/eventModels');
+var friendModels = require('./server/models/friendModels');
 mongoose.Promise = require('bluebird');
 
 mongoose.connect('mongodb://localhost/sembly');
@@ -107,6 +108,12 @@ mongoose.connection.on('connected', () => {
   })
   .then(event => {
     return eventModels.saveEvent(event._id, users[0]._id)
+  })
+  .then( success => {
+    return friendModels.addFriend(users[0]._id, users[2]._id)
+  })
+  .then( success => {
+    return friendModels.acceptFriend(users[2]._id, users[0]._id)
   })
   .then( success => {
     console.log('Database populated');

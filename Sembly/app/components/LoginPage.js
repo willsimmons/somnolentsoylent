@@ -9,18 +9,41 @@ import {
 } from 'react-native';
 
 export default class LoginPage extends Component {
+  constructor(props){
+    super(props);
+  }
 
   _navigate() {
     this.props.navigator.push({
         name: 'Map'
     });
   }
+
+  componentWillMount () {
+    this.props.getLocation();
+  }
+
+  login() {
+     fetch('http://localhost:3000/api/users/login',{
+       method: 'POST',
+       headers: { "Content-Type" : "application/json" },
+       body: JSON.stringify({email: 'spencer@test.com', password: 'test'})
+     })
+     .then(response => {
+       return response.json();
+     })
+     .then( user => {
+       this.props.setUser(user);
+       this._navigate();
+     })
+   }
+
   render(){
 
     return (
       <View>
         <View style={styles.container}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity onPress={(e)=>{this.login()}} style={styles.button}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
         </View>
