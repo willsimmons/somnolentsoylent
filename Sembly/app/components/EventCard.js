@@ -5,10 +5,9 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  View
+  View,
 } from 'react-native';
 
-import EventModal from './EventModal.js';
 
 export default class EventCard extends Component {
   constructor(props) {
@@ -25,8 +24,7 @@ export default class EventCard extends Component {
     var background = this.props.index % 2 === 0 ? '#F5FCFF' : '#fff'
     return (
       <View>
-        <EventModal event={this.props.event._id} />
-        <TouchableOpacity key={this.props.event._id} style={{
+        <TouchableOpacity onPress={e => this.props.openModal(this.props.event._id)} key={this.props.event._id} style={{
           justifyContent: 'flex-start',
           flexDirection: 'row',
           backgroundColor: background,
