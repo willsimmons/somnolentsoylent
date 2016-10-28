@@ -110,9 +110,12 @@ mongoose.connection.on('connected', () => {
     return eventModels.saveEvent(event._id, users[0]._id)
   })
   .then( success => {
+    friendModels.addFriend(users[1]._id, users[0]._id);
+    friendModels.addFriend(users[0]._id, users[3]._id);
     return friendModels.addFriend(users[0]._id, users[2]._id)
   })
   .then( success => {
+    friendModels.acceptFriend(users[3]._id, users[0]._id)
     return friendModels.acceptFriend(users[2]._id, users[0]._id)
   })
   .then( success => {

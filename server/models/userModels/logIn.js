@@ -8,6 +8,7 @@ var thisUser;
 //Add a new user to the database
 module.exports = (email, password) => {
 	return User.findOne({'email': email})
+	.populate('requests').exec()
 	.then(user => {
 		if (!user) {
 			return new Promise((resolve,reject) => {

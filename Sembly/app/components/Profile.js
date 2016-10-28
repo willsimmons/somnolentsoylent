@@ -32,6 +32,8 @@ export default class Profile extends Component {
     this.getFriends();
   }
 
+
+
   getFriends(){
     fetch('http://localhost:3000/api/friends/getFriends',{
       method: 'POST',
@@ -39,14 +41,28 @@ export default class Profile extends Component {
       body: JSON.stringify({userId: this.props.user._id, search: ''})
     })
     .then(response => {
+      alert(response.status)
       return response.json();
     })
     .then( friends => {
-      this.setState({friends: friends, loading: false});
+      alert('yo')
+      this.setState({
+        feed: friends, 
+        friends: friends, 
+        loading: false
+      });
     })
     .catch( error => {
       console.log(error);
     });
+  }
+
+  filterFriends(){
+    this.setState({feed: this.state.friends});
+  }
+
+  filterUsers(){
+    this.setState({feed: []});
   }
   
   render(){
@@ -75,13 +91,17 @@ export default class Profile extends Component {
             Email: {this.props.user.email}
           </Text> 
           <View style={styles.flowRight}>
-            <TouchableOpacity style={styles.button}
+            <TouchableOpacity onPress={()=> this.filterFriends()} style={styles.button}
                 underlayColor='#99d9f4'>
               <Text style={styles.buttonText}>Friends</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}
+            <TouchableOpacity onPress={this.filterUsers.bind(this)} style={styles.button}
                 underlayColor='#99d9f4'>
               <Text style={styles.buttonText}>Search Users</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}
+                underlayColor='#99d9f4'>
+              <Text style={styles.buttonText}>Friend Requests</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.flowRight}>
@@ -95,7 +115,7 @@ export default class Profile extends Component {
           </View>
         </View>
         <View>
-          {this.state.friends.map( 
+          {this.state.feed.map( 
             (friend, index) => { 
               return (
                 <UserCard user={friend} index={index}/>
@@ -129,7 +149,7 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 14,
     color: 'white',
     alignSelf: 'center'
   },
@@ -144,7 +164,7 @@ var styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    marginRight: 1
+    marginRight: 2
   },
   searchInput: {
     height: 36,
