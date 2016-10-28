@@ -12,10 +12,8 @@ import TopBar from './TopBar.js';
 import LoginPage from './LoginPage.js';
 import Main from './Main.js';
 import Map from './Map.js';
-import Invites from './Invites.js';
 import Profile from './Profile.js';
 import Feed from './Feed.js';
-import Saved from './Saved.js';
 
 export default class App extends Component {
   constructor(props) {
