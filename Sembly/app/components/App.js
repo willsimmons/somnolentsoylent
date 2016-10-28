@@ -7,6 +7,7 @@ import {
   Navigator
 } from 'react-native';
 
+var app;
 import TopBar from './TopBar.js';
 import LoginPage from './LoginPage.js';
 import Main from './Main.js';
@@ -17,32 +18,48 @@ import Feed from './Feed.js';
 import Saved from './Saved.js';
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    app = this
+  }
+
+  getLocation() {
+    let context = this;
+    navigator.geolocation.getCurrentPosition(data => {
+      context.setState({currentLoc: [data.coords.latitude, data.coords.longitude], mongoLocation: [data.coords.longitude, data.coords.latitude]});
+    });
+  }
+
+  setUser(user) {
+    this.setState({user: user})
+  }
 
   renderScene(route, navigator){
     if(route.name === 'LoginPage'){
-      return <LoginPage navigator={navigator}/>
+      return <LoginPage getLocation={app.getLocation.bind(app)} setUser={app.setUser.bind(app)} navigator={navigator}/>
     }
 
     if(route.name === 'Profile') {
-      return <Profile navigator={navigator}/>
+      return <Profile user={app.state.user} navigator={navigator}/>
     }
     if(route.name === 'Map') {
-      return <Map navigator={navigator}/>
+      return <Map user={app.state.user} mongoLocation={app.state.mongoLocation} navigator={navigator}/>
     }
     if(route.name === 'Feed') {
-      return <Feed page={'bundle'} navigator={navigator}/>
+      return <Feed user={app.state.user} mongoLocation={app.state.mongoLocation} page={'bundle'} navigator={navigator}/>
     }
     if(route.name === 'Invites') {
-      return <Feed page={'invited'} navigator={navigator}/>
+      return <Feed user={app.state.user} page={'invited'} navigator={navigator}/>
     }
     if(route.name === 'Saved') {
-      return <Feed page={'saved'} navigator={navigator}/>
+      return <Feed user={app.state.user} page={'saved'} navigator={navigator}/>
     }
   }
 
   configureScene(route, routeStack){
    return Navigator.SceneConfigs.FloatFromBottom;
   }
+
 
   render () {
     return (
