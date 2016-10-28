@@ -16,33 +16,43 @@ export default class LoginPage extends Component {
     });
   }
   render(){
+
     return (
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={ () => this._navigate() }>
-            <Text style={styles.loginButton}>LOGIN</Text>
-        </TouchableOpacity>
+      <View>
+        <View style={styles.container}>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
+    
   }
 
 };
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1
-  },
-  loginButton: {
-    flexDirection: 'row',
-    padding: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    backgroundColor: 'red',
-    fontWeight: 'bold',
-    color: 'white',
-    fontSize: 25
+container: {
+  padding: 30,
+  marginTop: 200,
+  alignItems: 'center'
+},
+buttonText: {
+  fontSize: 20,
+  fontWeight: 'bold',
+  color: 'white',
+  alignSelf: 'center'
+},
+button: {
+  height: 36,
+  flex: 1,
+  backgroundColor: 'red',
+  borderColor: 'red',
+  borderWidth: 1,
+  borderRadius: 8,
+  marginBottom: 10,
+  alignSelf: 'stretch',
+  justifyContent: 'center'
+}
 
-  }
 });
