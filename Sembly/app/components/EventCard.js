@@ -12,7 +12,6 @@ export default class EventCard extends Component {
   constructor(props) {
     super(props);
   }
-
   render () {
     var time;
     var stats = this.props.event.invitedUsers.length + ' Users invited  ' + this.props.event.savedUsers.length + ' Users Saved  ' + this.props.event.checkedInUsers.length + ' Users Checked In';
@@ -31,7 +30,7 @@ export default class EventCard extends Component {
         borderBottomColor: 'grey',
         borderBottomWidth: 1
       }}>
-        <Image style={{height:55, width:55, marginRight:10}}source={{uri: this.props.event.image}}/>
+        <Image style={styles.image} source={{uri: this.props.event.image}}/>
         <View style={styles.text}>
           <Text style={styles.title}>{this.props.event.name}</Text>
           <Text style={styles.instructions}>{time.toString()}</Text>
@@ -56,5 +55,11 @@ const styles = StyleSheet.create({
   },
   instructions: {
     color: 'black'
+  },
+  image: {
+    borderRadius:3,
+    height:55, 
+    width:55, 
+    marginRight:10
   }
 });
