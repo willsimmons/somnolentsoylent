@@ -6,7 +6,8 @@ import {
   Navigator,
   TouchableHighlight,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  Image
 } from 'react-native';
 
 import Drawer from 'react-native-drawer';
@@ -15,23 +16,64 @@ import Drawer from 'react-native-drawer';
 import TopBar from './TopBar.js';
 import OurDrawer from './OurDrawer.js';
 import Menu from './Menu.js';
-import _navigate from './navigateConfig.js';
+import UserCard from './UserCard.js';
 
+import _navigate from './navigateConfig.js';
 
 export default class Profile extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      loading: true
+    };
   }
+
+  componentWillMount(){
+    this.getFriends();
+  }
+
+  getFriends(){
+    fetch('http://localhost:3000/api/friends/getFriends',{
+      method: 'POST',
+      headers: { "Content-Type" : "application/json" },
+      body: JSON.stringify({userId: this.props.user._id, search: ''})
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then( friends => {
+      this.setState({friends: friends, loading: false});
+    })
+    .catch( error => {
+      console.log(error);
+    });
+  }
+  
   render(){
+    // for(var key in this.props.user){
+    //   alert(key)
+    // }
+    if (this.state.loading) {
+      return (
+        <OurDrawer topBarFilterVisible={false} topBarName={'Feed'} _navigate={_navigate.bind(this)}>
+          <View>
+            <Text>Loading...</Text>
+          </View>  
+        </OurDrawer>
+        )
+    }
+
+
     return (
       <OurDrawer topBarName={'Profile'} _navigate={_navigate.bind(this)}>
         <View style={styles.container}>
+          <Image style={styles.image} source={{uri: this.props.user.photoUrl}}/>
           <Text style={styles.description}>
-            Name
-          </Text>
+            Name: {this.props.user.firstName + ' ' + this.props.user.lastName}
+          </Text> 
           <Text style={styles.description}>
-            Email
-          </Text>
+            Email: {this.props.user.email}
+          </Text> 
           <View style={styles.flowRight}>
             <TouchableOpacity style={styles.button}
                 underlayColor='#99d9f4'>
@@ -52,6 +94,15 @@ export default class Profile extends Component {
             </TouchableOpacity>
           </View>
         </View>
+        <View>
+          {this.state.friends.map( 
+            (friend, index) => { 
+              return (
+                <UserCard user={friend} index={index}/>
+              )
+            }
+          )}
+        </View>
       </OurDrawer>
     )
   }
@@ -59,15 +110,18 @@ export default class Profile extends Component {
 
 var styles = StyleSheet.create({
   description: {
-    marginBottom: 20,
+    marginBottom: 10,
     fontSize: 18,
     textAlign: 'center',
     color: '#656565'
   },
   container: {
     padding: 10,
-    marginTop: 0,
-    alignItems: 'center'
+    marginTop: 10,
+    alignItems: 'center',
+    // backgroundColor: 'blue',
+    // borderColor: 'black',
+    // borderWidth: 1,
   },
   flowRight: {
     flexDirection: 'row',
@@ -103,6 +157,13 @@ var styles = StyleSheet.create({
     borderRadius: 8,
     color: '#48BBEC',
     textAlign: 'center'
+  },
+  image: {
+    borderRadius:8,
+    height:200, 
+    width:200, 
+    marginRight:10,
+    marginBottom: 20
   }
 });
 

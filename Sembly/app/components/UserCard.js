@@ -5,7 +5,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  Modal
+  Modal,
   View
 } from 'react-native';
 
@@ -37,14 +37,14 @@ export default class UserCard extends Component {
     	message = 'Accept ' + this.props.user.firstName +'\'s friend request?'
     }
     return (
+      	  // <Modal>
+      	  // 	<View>
+	      	 //  	<Text> {message} </Text>
+	      	 //  	<TouchableOpacity></TouchableOpacity>
+	      	 //  	<TouchableOpacity></TouchableOpacity>
+      	  // 	</View>
+      	  // </Modal>
       <View>
-      	  <Modal>
-      	  	<View>
-	      	  	<Text> {message} </Text>
-	      	  	<TouchableOpacity>OK</TouchableOpacity>
-	      	  	<TouchableOpacity>X</TouchableOpacity>
-      	  	</View>
-      	  </Modal>
 	      <TouchableOpacity key={this.props.user._id} style={{
 	        justifyContent: 'flex-start',
 	        flexDirection: 'row',
