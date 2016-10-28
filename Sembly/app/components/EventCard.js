@@ -8,6 +8,8 @@ import {
   View
 } from 'react-native';
 
+import EventModal from './EventModal.js';
+
 export default class EventCard extends Component {
   constructor(props) {
     super(props);
@@ -22,21 +24,24 @@ export default class EventCard extends Component {
     }
     var background = this.props.index % 2 === 0 ? '#F5FCFF' : '#fff'
     return (
-      <TouchableOpacity key={this.props.event._id} style={{
-        justifyContent: 'flex-start',
-        flexDirection: 'row',
-        backgroundColor: background,
-        padding: 10,
-        borderBottomColor: 'grey',
-        borderBottomWidth: 1
-      }}>
-        <Image style={styles.image} source={{uri: this.props.event.image}}/>
-        <View style={styles.text}>
-          <Text style={styles.title}>{this.props.event.name}</Text>
-          <Text style={styles.instructions}>{time.toString()}</Text>
-          <Text style={styles.stats}>{stats}</Text>
-        </View>
-      </TouchableOpacity>
+      <View>
+        <EventModal event={this.props.event._id} />
+        <TouchableOpacity key={this.props.event._id} style={{
+          justifyContent: 'flex-start',
+          flexDirection: 'row',
+          backgroundColor: background,
+          padding: 10,
+          borderBottomColor: 'grey',
+          borderBottomWidth: 1
+        }}>
+          <Image style={styles.image} source={{uri: this.props.event.image}}/>
+          <View style={styles.text}>
+            <Text style={styles.title}>{this.props.event.name}</Text>
+            <Text style={styles.instructions}>{time.toString()}</Text>
+            <Text style={styles.stats}>{stats}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     );
   }
 };
