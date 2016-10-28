@@ -30,7 +30,10 @@ export default class EventModal extends Component {
   }
   getRender () {
   	if (this.state.loading === true) {
+
   		return (<Text>Loading...</Text>)
+  	} else {
+
   	}
   }
   render () {
@@ -38,8 +41,8 @@ export default class EventModal extends Component {
     return (
       <Modal ref={'EventModal'} style={styles.modal} isOpen={this.props.visibility}>
         <View style={styles.container}>
-          {getRender()}
-          <TouchableOpacity onPress={() => context.refs.EventModal.close()}>
+          {this.getRender()}
+          <TouchableOpacity onPress={() => {context.setState({loading: true}); context.refs.EventModal.close()}}>
             <Icon style={styles.closeButton} name='close'/>
           </TouchableOpacity>
         </View>
