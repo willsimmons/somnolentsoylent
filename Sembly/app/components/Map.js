@@ -11,17 +11,41 @@ import {
 import MapView from 'react-native-maps';
 import OurDrawer from './OurDrawer.js';
 import _navigate from './navigateConfig.js';
+import NewEventFab from './NewEventFab.js';
 
 export default class Map extends Component {
   constructor (props) {
     super(props);
-    this.state = {loading: true, markers: props.markers};
+    this.state = {loading: true, markers: null};
   }
   componentWillMount () {
     let context = this;
     navigator.geolocation.getCurrentPosition(data => {
-      context.setState({currentLoc: data, loading: false});
+      context.setState({currentLoc: data});
+      fetch('http://localhost:3000/api/events/bundle', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId: "58127fb6bada607fbb2af662",
+          location: [this.state.currentLoc.coords.longitude, this.state.currentLoc.coords.latitude]
+        })
+      }
+      )
+        .then(data => {
+          return data.json()
+        })
+        .then(data => {
+          console.log(data);
+          context.setState({markers: data})
+          context.setState({loading: false})
+        })
+        .catch((err) => {
+          console.error(err);
+        })
     });
+
   }
   render () {
     if(this.state.loading){
@@ -46,17 +70,24 @@ export default class Map extends Component {
                 latitudeDelta: .04,
                 longitudeDelta: .02
             }}>
-            {this.state.markers.map(marker => (
-              <MapView.Marker
-                key={marker.key}
-                coordinate={marker.latlng}
-                title={marker.title}
-                pinColor='blue'
-              />
-            ))}
+            {this.state.markers.map(marker => {
+              var tempLoc = {
+                latitude: marker.location[1],
+                longitude: marker.location[0]
+              }
+              return (
+                <MapView.Marker
+                  key={marker._id}
+                  coordinate={tempLoc}
+                  title={marker.name}
+                  pinColor='blue'
+                />
+              )
+            })}
             </MapView>
+            <NewEventFab/>
           </View>
-        </OurDrawer>  
+        </OurDrawer>
       )
     }
   }
@@ -64,14 +95,11 @@ export default class Map extends Component {
 
 const styles = StyleSheet.create({
   map: {
-    height: Dimensions.get('window').height - 60
+    height: Dimensions.get('window').height - 60,
+    zIndex: 0
   },
   loading: {
     fontSize: 75,
     fontWeight: 'bold',
-  },
-  marker: {
-    fontSize: 50,
-    color: 'blue'
   }
 });
