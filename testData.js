@@ -16,7 +16,7 @@ var users = [
     lastName: 'Franklin',
     email: 'spencer@test.com',
     password: 'test',
-    photoUrl: 'https://avatars3.githubusercontent.com/u/11624412?v=3&s=466'
+    photoUrl: 'http://a1.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,q_80,w_620/MTE1ODA0OTcxNjMyNzg5MDA1.jpg'
   },
   {
     firstName: 'Omar',
