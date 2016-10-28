@@ -30,18 +30,19 @@ export default class LoginPage extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1
   },
   loginButton: {
-    fontSize: 20,
-    color: 'white',
-    backgroundColor: 'red',
+    flexDirection: 'row',
     padding: 10,
-    alignItems: 'center',
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    backgroundColor: 'red',
     fontWeight: 'bold',
-    justifyContent: 'center'
+    color: 'white',
+    fontSize: 25
+
   }
 });

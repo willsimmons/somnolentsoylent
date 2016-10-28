@@ -22,7 +22,7 @@ import _navigate from './navigateConfig.js';
 export default class Feed extends Component {
   constructor(props){
     super(props);
-    this.state = {loading: true, userId: '5812c122233f5e1bbf86090d'}
+    this.state = {loading: true, userId: '5812c51bfe439c161fcdae44'}
   }
   componentWillMount() {
     if (this.props.page === 'bundle') {

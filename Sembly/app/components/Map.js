@@ -28,7 +28,7 @@ export default class Map extends Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          userId: "58127fb6bada607fbb2af662",
+          userId: "5812c51bfe439c161fcdae44",
           location: [this.state.currentLoc.coords.longitude, this.state.currentLoc.coords.latitude]
         })
       }
