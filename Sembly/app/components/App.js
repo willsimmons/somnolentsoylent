@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 
 import TopBar from './TopBar.js';
-import NavMenu from './NavMenu.js';
 import LoginPage from './LoginPage.js';
 import Main from './Main.js';
 import Map from './Map.js';
@@ -28,33 +27,16 @@ export default class App extends Component {
       return <Profile navigator={navigator}/>
     }
     if(route.name === 'Map') {
-      return <Map navigator={navigator} markers={[
-        {
-          key: 1,
-          latlng: {
-            latitude: 37.783711,
-            longitude: -122.398972
-          },
-          title: "Marker 1"
-        },
-        {
-          key: 2,
-          latlng: {
-            latitude: 37.785033,
-            longitude: -122.412662
-          },
-          title: "Marker 1"
-        }
-      ]}/>
+      return <Map navigator={navigator}/>
     }
     if(route.name === 'Feed') {
-      return <Feed navigator={navigator}/>
+      return <Feed page={'bundle'} navigator={navigator}/>
     }
     if(route.name === 'Invites') {
-      return <Invites navigator={navigator}/>
+      return <Feed page={'invited'} navigator={navigator}/>
     }
     if(route.name === 'Saved') {
-      return <Saved navigator={navigator}/>
+      return <Feed page={'saved'} navigator={navigator}/>
     }
   }
 
