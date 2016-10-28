@@ -11,9 +11,8 @@ import {
   Text,
   View
 } from 'react-native';
-import NavMenu from './app/components/NavMenu.js';
+
 import App from './app/components/App.js';
-import TopBar from './app/components/TopBar.js';
 
 export default class Sembly extends Component {
   render() {

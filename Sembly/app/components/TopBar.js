@@ -18,9 +18,9 @@ export default class TopBar extends Component {
         <TouchableOpacity onPress={this.props.openDrawer }>
           <Icon name='menu' style={styles.content}></Icon>
         </TouchableOpacity>
-        <Text style={styles.logo}>Sembly</Text>
+        <Text style={styles.logo}>{this.props.topBarName ? this.props.topBarName : 'Sembly'}</Text>
         <TouchableOpacity>
-          <Icon name='filter-list' style={styles.content}></Icon>
+          { this.props.topBarFilterVisible ? <Icon name='filter-list' style={styles.content}></Icon> : <Text></Text> }
         </TouchableOpacity>
       </View>
     )

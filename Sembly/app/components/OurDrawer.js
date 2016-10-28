@@ -15,7 +15,9 @@ import TopBar from './TopBar.js';
 
 
 export default class OurDrawer extends Component{
-
+  constructor(props){
+    super(props)
+  }
 	render(){
 		return (
       <Drawer
@@ -31,7 +33,7 @@ export default class OurDrawer extends Component{
         tweenHandler={(ratio) => ({
                 main: { opacity:(2-ratio)/2 }
         })}>
-         <TopBar openDrawer={() => {this._drawer.open()} }/>
+         <TopBar topBarName={this.props.topBarName} topBarFilterVisible={this.props.topBarFilterVisible} openDrawer={() => {this._drawer.open()} }/>
        	{this.props.children}
       </Drawer>
     );
