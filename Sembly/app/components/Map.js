@@ -44,8 +44,8 @@ export default class Map extends Component {
       console.error(err);
     })
   }
-  toggleModalVisibility () {
-    this.setState({modalVisible: !this.state.modalVisible})
+  openModal () {
+    this.setState({modalVisible: true})
   }
   render () {
     if(this.state.loading){
@@ -85,7 +85,7 @@ export default class Map extends Component {
               )
             })}
             </MapView>
-            <NewEventFab onPress={this.toggleModalVisibility.bind(this)}/>
+            <NewEventFab onPress={this.openModal.bind(this)}/>
             <NewEventModal visibility={this.state.modalVisible}/>
           </View>
         </OurDrawer>
