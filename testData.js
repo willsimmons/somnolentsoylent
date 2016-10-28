@@ -103,9 +103,12 @@ mongoose.connection.on('connected', () => {
     return Event.create(events);
   })
   .then(events => {
+    console.log(events[0])
     console.log('Database populated');
+    process.exit();
   })
   .catch(error => {
     console.log(error);
+    process.exit(1);
   })
 });
