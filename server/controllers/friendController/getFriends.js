@@ -2,7 +2,7 @@
 var friendModels = require('../../models/friendModels');
 
 module.exports = (req, res) => {
-	if (!req.body.userId || !req.body.search) {
+	if (!req.body.userId) {
 		res.status(400).send('Invalid Input');
 		return;
 	}
