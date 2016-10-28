@@ -8,10 +8,9 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import {
-  MKProgress,
-  MKSpinner,
-} from 'react-native-material-kit';
+
+import Spinner from './Spinner.js'
+
 
 const styles = StyleSheet.create({
 container: {
@@ -35,17 +34,9 @@ button: {
   marginBottom: 10,
   alignSelf: 'stretch',
   justifyContent: 'center'
-},
-spinner: {
-    width: 40,
-    height: 40
-  }
-
+}
 });
 
-const SingleColorSpinner = MKSpinner.singleColorSpinner()
-  .withStyle(styles.spinner)
-  .build();
 
 export default class LoginPage extends Component {
   constructor(props){
@@ -81,7 +72,7 @@ export default class LoginPage extends Component {
 
   render(){
     if (this.state.loading) {
-      return (<View style={styles.container}><SingleColorSpinner /></View>)
+      return (<View style={styles.container}><Spinner/></View>)
     }
     else {  
       return (
