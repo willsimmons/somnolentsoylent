@@ -34,9 +34,25 @@ export default class Profile extends Component {
   }
 
   searchUsers(search){
-    
+    var search = search || '';
+    fetch('http://localhost:3000/api/users/'+ search,{
+      method: 'GET',
+      headers: { "Content-Type" : "application/json" }
+      // body: JSON.stringify({userId: this.props.user._id, search: search})
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then( users => {
+      this.setState({
+        feed: users,  
+        loading: false
+      });
+    })
+    .catch( error => {
+      console.log(error);
+    });
   }
-
   getFriends(search){
     var search = search || '';
     fetch('http://localhost:3000/api/friends/getFriends',{
@@ -68,15 +84,18 @@ export default class Profile extends Component {
   }
 
   filterFriends(){
+    this.setState({view: 'Friends'});
     this.setState({feed: this.state.friends});
   }
 
   filterUsers(){
+    this.setState({view: 'Users'});
     this.setState({feed: []});
   }
 
   filterRequests(){
     //add a requestCard view later to have a add friend or not option
+    this.setState({view: 'Requests'});
     this.setState({feed: this.props.user.requests});
   }
 
@@ -85,7 +104,15 @@ export default class Profile extends Component {
   }
 
   onSearchGo(){
-    this.getFriends(this.state.searchString);
+    if(this.state.view === 'Friends'){
+      this.getFriends(this.state.searchString);
+    }
+    if(this.state.view === 'Requests'){
+
+    }
+    if(this.state.view === 'Users'){
+      this.searchUsers(this.state.searchString);
+    }
   }
   
   render(){
