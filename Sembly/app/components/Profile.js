@@ -24,7 +24,8 @@ export default class Profile extends Component {
   constructor(props){
     super(props);
     this.state = {
-      loading: true
+      loading: true,
+      searchString: ''
     };
   }
 
@@ -32,23 +33,19 @@ export default class Profile extends Component {
     this.getFriends();
   }
 
-
-
-  getFriends(){
-    fetch('http://localhost:3000/api/friends/getFriends',{
-      method: 'POST',
-      headers: { "Content-Type" : "application/json" },
-      body: JSON.stringify({userId: this.props.user._id, search: ''})
+  searchUsers(search){
+    var search = search || '';
+    fetch('http://localhost:3000/api/users/'+ search,{
+      method: 'GET',
+      headers: { "Content-Type" : "application/json" }
+      // body: JSON.stringify({userId: this.props.user._id, search: search})
     })
     .then(response => {
-      alert(response.status)
       return response.json();
     })
-    .then( friends => {
-      alert('yo')
+    .then( users => {
       this.setState({
-        feed: friends, 
-        friends: friends, 
+        feed: users,  
         loading: false
       });
     })
@@ -56,19 +53,69 @@ export default class Profile extends Component {
       console.log(error);
     });
   }
+  getFriends(search){
+    var search = search || '';
+    fetch('http://localhost:3000/api/friends/getFriends',{
+      method: 'POST',
+      headers: { "Content-Type" : "application/json" },
+      body: JSON.stringify({userId: this.props.user._id, search: search})
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then( friends => {
+      if(search.length>0){
+        this.setState({
+          feed: friends,  
+          loading: false
+        });
+      }
+      if(search.length===0){
+        this.setState({
+          feed: friends,
+          friends: friends,
+          loading: false
+        })
+      }
+    })
+    .catch( error => {
+      console.log(error);
+    });
+  }
 
   filterFriends(){
+    this.setState({view: 'Friends'});
     this.setState({feed: this.state.friends});
   }
 
   filterUsers(){
+    this.setState({view: 'Users'});
     this.setState({feed: []});
+  }
+
+  filterRequests(){
+    //add a requestCard view later to have a add friend or not option
+    this.setState({view: 'Requests'});
+    this.setState({feed: this.props.user.requests});
+  }
+
+  onSearchTextChange(event){
+    this.setState({searchString: event.nativeEvent.text});
+  }
+
+  onSearchGo(){
+    if(this.state.view === 'Friends'){
+      this.getFriends(this.state.searchString);
+    }
+    if(this.state.view === 'Requests'){
+
+    }
+    if(this.state.view === 'Users'){
+      this.searchUsers(this.state.searchString);
+    }
   }
   
   render(){
-    // for(var key in this.props.user){
-    //   alert(key)
-    // }
     if (this.state.loading) {
       return (
         <OurDrawer topBarFilterVisible={false} topBarName={'Feed'} _navigate={_navigate.bind(this)}>
@@ -91,25 +138,23 @@ export default class Profile extends Component {
             Email: {this.props.user.email}
           </Text> 
           <View style={styles.flowRight}>
-            <TouchableOpacity onPress={()=> this.filterFriends()} style={styles.button}
-                underlayColor='#99d9f4'>
+            <TouchableOpacity onPress={this.filterFriends.bind(this)} style={styles.button}>
               <Text style={styles.buttonText}>Friends</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.filterUsers.bind(this)} style={styles.button}
-                underlayColor='#99d9f4'>
+            <TouchableOpacity onPress={this.filterUsers.bind(this)} style={styles.button}>
               <Text style={styles.buttonText}>Search Users</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}
-                underlayColor='#99d9f4'>
+            <TouchableOpacity onPress={this.filterRequests.bind(this)} style={styles.button}>
               <Text style={styles.buttonText}>Friend Requests</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.flowRight}>
             <TextInput
               style={styles.searchInput}
-              placeholder='Search via name or email'/>
-            <TouchableOpacity style={styles.button}
-                underlayColor='#99d9f4'>
+              placeholder='Search via name or email'
+              onChange={this.onSearchTextChange.bind(this)}
+              />
+            <TouchableOpacity onPress={()=> this.onSearchGo()} style={styles.button}>
               <Text style={styles.buttonText}>Go</Text>
             </TouchableOpacity>
           </View>
@@ -175,8 +220,7 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'grey',
     borderRadius: 8,
-    color: '#48BBEC',
-    textAlign: 'center'
+    color: 'black',
   },
   image: {
     borderRadius:8,
