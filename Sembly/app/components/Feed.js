@@ -110,7 +110,7 @@ export default class Feed extends Component {
           {this.state.events.map( (event, index) => <EventCard openModal={this.openEvent.bind(this)} event={event} index={index}/>)}
         </View>
         <NewEventFab onPress={this.openModal.bind(this)}/> 
-        <EventModal visibility={this.state.eventModal} event={this.state.eventId}/>
+        <EventModal user={this.props.user} visibility={this.state.eventModal} event={this.state.eventId}/>
         <NewEventModal visibility={this.state.addEventModal}/>
       </OurDrawer>
     )
