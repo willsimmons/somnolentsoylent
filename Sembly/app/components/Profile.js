@@ -25,7 +25,8 @@ export default class Profile extends Component {
     super(props);
     this.state = {
       loading: true,
-      searchString: ''
+      searchString: '',
+      view: 'Friends'
     };
   }
 
@@ -113,8 +114,8 @@ export default class Profile extends Component {
     if(this.state.view === 'Users'){
       this.searchUsers(this.state.searchString);
     }
+
   }
-  
   render(){
     if (this.state.loading) {
       return (
