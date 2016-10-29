@@ -164,7 +164,7 @@ export default class Profile extends Component {
           {this.state.feed.map( 
             (friend, index) => { 
               return (
-                <UserCard user={friend} index={index}/>
+                <UserCard view={this.state.view} user={friend} index={index}/>
               )
             }
           )}
