@@ -156,9 +156,10 @@ const styles = StyleSheet.create({
     top: 10,
     right: 15,
   },
-    closeButton:{
+  closeButton:{
     fontSize: 30,
-    zIndex: 3
+    zIndex: 3,
+    backgroundColor: 'transparent'
   },
   description: {
     marginBottom: 10,

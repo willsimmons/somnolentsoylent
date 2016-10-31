@@ -22,31 +22,45 @@ export default class Menu extends Component {
 
   render(){
     return (
-      <View>
-        <View style={styles.imageView}>
-            { this.props.user ? <Image style={styles.image} source={{uri: this.props.user.photoUrl}}/> : <Text></Text>}
-        </View>
-        <Text style={styles.description}>
-           {this.props.user ? this.props.user.firstName + ' ' + this.props.user.lastName : <Text></Text>}
-        </Text> 
-        <View style={styles.menuView}>
-          <View style={styles.flowRight}>
-            <Icon name='account-circle' style={styles.icon}></Icon>
-            <TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Profile')}} >
-            	<Text style={styles.listElem}>Profile</Text>
-            </TouchableOpacity>
+      <View style={styles.outer}>
+        <TouchableOpacity onPress={()=> {this.props._navigate('Profile')}} >
+          <View style={styles.imageView}>
+              { this.props.user ? <Image style={styles.image} source={{uri: this.props.user.photoUrl}}/> : <Text></Text>}
           </View>
-      		<TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Map')}}>
-          	<Text style={styles.listElem}>Map</Text>
+          <Text style={styles.description}>
+             {this.props.user ? this.props.user.firstName + ' ' + this.props.user.lastName : <Text></Text>}
+          </Text> 
+        </TouchableOpacity>
+        <View style={styles.menuView}>
+          <TouchableOpacity style={styles.flowRight} onPress={()=> {this.props._navigate('Profile')}} >
+              <Icon name='account-circle' style={styles.icon}></Icon>
+              <View style={styles.listTouchable}>
+              	<Text style={styles.listElem}>Profile</Text>
+              </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Feed')}}>
-          	<Text style={styles.listElem}>Feed</Text>
+          <TouchableOpacity style={styles.flowRight} onPress={()=> {this.props._navigate('Map')}} >
+            <Icon name='location-on' style={styles.icon}></Icon>
+        		<View style={styles.listTouchable}>
+            	<Text style={styles.listElem}>Map</Text>
+            </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Invites')}}>
-          	<Text style={styles.listElem}>Invites</Text>
+          <TouchableOpacity style={styles.flowRight} onPress={()=> {this.props._navigate('Feed')}} >
+            <Icon name='format-list-bulleted' style={styles.icon}></Icon>
+            <View style={styles.listTouchable}>
+            	<Text style={styles.listElem}>Feed</Text>
+            </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.listTouchable} onPress={()=> {this.props._navigate('Saved')}} >
-          	<Text style={styles.listElem}>Saved</Text>
+          <TouchableOpacity style={styles.flowRight} onPress={()=> {this.props._navigate('Invites')}} >
+            <Icon name='mail' style={styles.icon}></Icon>
+            <View style={styles.listTouchable}>
+            	<Text style={styles.listElem}>Invites</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.flowRight} onPress={()=> {this.props._navigate('Saved')}} >
+            <Icon name='archive' style={styles.icon}></Icon>
+            <View style={styles.listTouchable}>
+            	<Text style={styles.listElem}>Saved</Text>
+            </View>
           </TouchableOpacity>
         </View> 
       </View>
@@ -57,20 +71,28 @@ export default class Menu extends Component {
 }
 
 const styles = StyleSheet.create({
+  outer: {
+
+  },
   menuView: {
     borderStyle: 'solid',
-    borderTopWidth: 1,
+    // borderTopWidth: 1,
     borderColor: '#aeb3ba',
-
+    marginLeft: 14
   },
   flowRight: {
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'stretch',
-    paddingLeft: 12
+    justifyContent: 'flex-start',
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#aeb3ba',
+    paddingTop: 10,
+    paddingBottom: 10
   },
   imageView: {
-    marginTop: 60,
+    marginTop: 40,
     alignItems: 'center'
   },
   description: {
@@ -82,14 +104,14 @@ const styles = StyleSheet.create({
   icon: {
     fontSize: 26,
     marginRight: 10,
-    marginTop: 15,
+    // marginTop: 15,
     color: 'gray',
 
   },
   image: {
-    borderRadius: 8,
-    height: 150, 
-    width: 150, 
+    borderRadius: 50,
+    height: 100, 
+    width: 100, 
     marginRight:10,
     marginBottom: 20
   },
@@ -102,9 +124,9 @@ const styles = StyleSheet.create({
 	},
 	listTouchable: {
 		// borderStyle: 'solid',
-  //   borderBottomWidth: 2,
+  //   borderBottomWidth: 1,
   //   borderColor: 'black',
-    marginTop: 10
+    // marginTop: 10,
 
 	},
   listElem: {
@@ -113,7 +135,7 @@ const styles = StyleSheet.create({
     color: 'black',
     alignItems: 'center',
 
-    padding: 10,
+    // padding: 10,
     // paddingLeft: 80
 
   }

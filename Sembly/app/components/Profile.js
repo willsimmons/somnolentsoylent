@@ -265,7 +265,7 @@ var styles = StyleSheet.create({
     color: 'black',
   },
   image: {
-    borderRadius:8,
+    borderRadius: 100,
     height:200, 
     width:200, 
     marginRight:10,
