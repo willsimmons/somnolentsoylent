@@ -7,7 +7,8 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   TextInput,
-  Image
+  Image,
+  ScrollView
 } from 'react-native';
 
 import Drawer from 'react-native-drawer';
@@ -32,6 +33,7 @@ export default class Profile extends Component {
 
   componentWillMount(){
     this.getFriends();
+    this.getNewRequests();
   }
 
   searchUsers(search){
@@ -54,6 +56,30 @@ export default class Profile extends Component {
       console.log(error);
     });
   }
+
+  //need a better way to get the rest of refreshed version of friend requests
+  //every time we go back in we use the old version of the user when we logged in, not 
+  //the new version in the database
+  //set new user each time a change is done?
+  getNewRequests(context){
+     fetch('http://localhost:3000/api/friends/getRequests',{
+       method: 'POST',
+       headers: { "Content-Type" : "application/json" },
+       body: JSON.stringify({userId: this.props.user._id})
+     })
+     .then(response => {
+       return response.json();
+     })
+     .then( requests => {
+        this.setState({
+          requests: requests
+        });
+     }) 
+     .catch( error => {
+      console.log(error);
+    });
+  }
+
   getFriends(search){
     var search = search || '';
     fetch('http://localhost:3000/api/friends/getFriends',{
@@ -78,6 +104,8 @@ export default class Profile extends Component {
           loading: false
         })
       }
+
+      // alert(this.props.user.friends.length)
     })
     .catch( error => {
       console.log(error);
@@ -95,9 +123,8 @@ export default class Profile extends Component {
   }
 
   filterRequests(){
-    //add a requestCard view later to have a add friend or not option
     this.setState({view: 'Requests'});
-    this.setState({feed: this.props.user.requests});
+    this.setState({feed: this.state.requests});
   }
 
   onSearchTextChange(event){
@@ -160,15 +187,28 @@ export default class Profile extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        <View>
+        <ScrollView>
           {this.state.feed.map( 
             (friend, index) => { 
               return (
-                <UserCard user={friend} index={index}/>
+                <UserCard 
+                  refreshUserFriends={
+                    ()=> {
+                      this.setState({view: 'Friends'});
+                      this.getFriends();
+                    }
+                  } 
+                  getNewRequests = {
+                    (context) => this.getNewRequests(context)
+                  }
+                  currentUserId={this.props.user._id} 
+                  view={this.state.view} 
+                  user={friend} 
+                  index={index}/>
               )
             }
           )}
-        </View>
+        </ScrollView>
       </OurDrawer>
     )
   }
