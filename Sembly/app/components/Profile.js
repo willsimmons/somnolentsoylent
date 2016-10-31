@@ -37,8 +37,7 @@ var styles = StyleSheet.create({
   innerNav: {
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'stretch',
-    backgroundColor: 'red'
+    alignSelf: 'stretch'
   },
   flowRight: {
     flexDirection: 'row',
@@ -53,7 +52,17 @@ var styles = StyleSheet.create({
   button: {
     height: 36,
     flex: 1,
+    backgroundColor: '#F44336',
     flexDirection: 'row',
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
+  selected: {
+    height: 36,
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#3F51B5',
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -64,7 +73,7 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     margin: 10,
     borderBottomWidth: 1,
-    borderBottomColor: 'red',
+    borderBottomColor: '#F44336',
   },
   searchInput: {
     height: 36,
@@ -92,7 +101,10 @@ export default class Profile extends Component {
     this.state = {
       loading: true,
       searchString: '',
-      view: 'Friends'
+      view: 'Friends',
+      friendS: styles.selected,
+      userS: styles.button,
+      requestS: styles.button
     };
   }
 
@@ -179,17 +191,28 @@ export default class Profile extends Component {
 
   filterFriends(){
     this.setState({view: 'Friends'});
-    this.setState({feed: this.state.friends});
+    this.setState({feed: this.state.friends,
+    friendS: styles.selected,
+      requestS: styles.button,
+      userS:styles.button});
   }
 
   filterUsers(){
     this.setState({view: 'Users'});
-    this.setState({feed: []});
+    this.setState({
+      feed: [],
+      friendS: styles.button,
+      requestS: styles.button,
+      userS:styles.selected
+    });
   }
 
   filterRequests(){
     this.setState({view: 'Requests'});
-    this.setState({feed: this.state.requests});
+    this.setState({feed: this.state.requests,
+    friendS: styles.button,
+      requestS: styles.selected,
+      userS:styles.button});
   }
 
   onSearchTextChange(event){
@@ -231,13 +254,13 @@ export default class Profile extends Component {
             Email: {this.props.user.email}
           </Text>
           <View style={styles.innerNav}>
-            <TouchableOpacity onPress={this.filterFriends.bind(this)} style={styles.button}>
+            <TouchableOpacity onPress={this.filterFriends.bind(this)} style={this.state.friendS}>
               <Text style={styles.buttonText}>Search Friends</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.filterUsers.bind(this)} style={styles.button}>
+            <TouchableOpacity onPress={this.filterUsers.bind(this)} style={this.state.userS}>
               <Text style={styles.buttonText}>Search Users</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.filterRequests.bind(this)} style={styles.button}>
+            <TouchableOpacity onPress={this.filterRequests.bind(this)} style={this.state.requestS}>
               <Text style={styles.buttonText}>Friend Requests</Text>
             </TouchableOpacity>
           </View>

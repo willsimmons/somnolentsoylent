@@ -68,9 +68,8 @@ const styles = StyleSheet.create({
     height: 36,
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'red',
-    borderColor: 'red',
-    borderRadius: 8,
+    backgroundColor: '#F44336',
+    borderColor: '#F44336',
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -79,9 +78,8 @@ const styles = StyleSheet.create({
     height: 36,
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'blue',
-    borderColor: 'red',
-    borderRadius: 8,
+    backgroundColor: '#3F51B5',
+    borderColor: '#F44336',
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -93,7 +91,6 @@ const styles = StyleSheet.create({
     flex: 4,
     fontSize: 18,
     borderColor: 'grey',
-    borderRadius: 8,
     color: 'black',
   },
   image: {
@@ -250,7 +247,7 @@ export default class EventModal extends Component {
   render () {
     let context = this;
     return (
-      <Modal ref={'EventModal'} style={styles.modal} isOpen={true}>
+      <Modal ref={'EventModal'} onClosed={(e) => this.props.close()} style={styles.modal} isOpen={true}>
         <View style={styles.container}>
           {this.getRender()}
           <View style={styles.absoluteX}>
