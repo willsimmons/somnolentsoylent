@@ -43,6 +43,9 @@ export default class Feed extends Component {
   openEvent(eventId) {
     this.setState({eventModal: true, eventId: eventId, addEventModal: false});
   }
+  closeEvent () {
+    this.setState({eventModal:false});
+  }
   openModal () {
     this.setState({addEventModal: true, eventModal:false});
   }
@@ -94,6 +97,14 @@ export default class Feed extends Component {
       console.log(error);
     });
   }
+  getModal() {
+    if (this.state.eventModal) {
+      return <EventModal close={this.closeEvent.bind(this)} user={this.props.user} visibility={this.state.eventModal} event={this.state.eventId}/>
+    } else {
+      return (<View></View>)
+    }
+  }
+
   render(){
     if (this.state.loading) {
       return (
@@ -109,8 +120,8 @@ export default class Feed extends Component {
         <View>
           {this.state.events.map( (event, index) => <EventCard openModal={this.openEvent.bind(this)} event={event} index={index}/>)}
         </View>
-        <NewEventFab onPress={this.openModal.bind(this)}/> 
-        <EventModal user={this.props.user} visibility={this.state.eventModal} event={this.state.eventId}/>
+        <NewEventFab onPress={this.openModal.bind(this)}/>
+        {this.getModal()} 
         <NewEventModal visibility={this.state.addEventModal}/>
       </OurDrawer>
     )
