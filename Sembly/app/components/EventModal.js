@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height:200, 
+    width: Dimensions.get('window').width,
     marginBottom: 20,
     zIndex: 1
   }
