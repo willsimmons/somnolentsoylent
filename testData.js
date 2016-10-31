@@ -6,7 +6,9 @@ var eventModels = require('./server/models/eventModels');
 var friendModels = require('./server/models/friendModels');
 mongoose.Promise = require('bluebird');
 
-mongoose.connect('mongodb://localhost/sembly');
+if (!process.env.MONGODB_URI) {
+ mongoose.connect('mongodb://localhost/sembly'); 
+}
     
 
 //DATA
@@ -117,7 +119,9 @@ mongoose.connection.on('connected', () => {
   })
   .then( success => {
     console.log('Database populated');
-    process.exit();
+    if (!process.env.MONGODB_URI) {
+      process.exit();
+    }
   })
   .catch(error => {
     console.log(error);
