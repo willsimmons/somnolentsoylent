@@ -5,11 +5,10 @@ mongoose.Promise = bluebird;
 
 var app = express();
 
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 // connect to mongo database named "sembly"
 if (process.env.PRODUCTION == 'true') {
-  port = 80;
   mongoose.connect(process.env.MONGODB_URI.toString())
 } else if (process.argv[2] === 'production') {
   mongoose.connect('mongodb://localhost/sembly');		
