@@ -12,7 +12,7 @@ module.exports = function (app, express) {
 
   //Handle Friend actions
   app.post('/api/friends/getFriends', friendController.getFriends);
-  app.post('/api/friends/getFriends', friendController.getRequests);
+  app.post('/api/friends/getRequests', friendController.getRequests);
   app.post('/api/friends/friendRequest', friendController.friendRequest);
   app.post('/api/friends/rejectRequest', friendController.rejectRequest);
   app.post('/api/friends/acceptRequest', friendController.acceptRequest);
