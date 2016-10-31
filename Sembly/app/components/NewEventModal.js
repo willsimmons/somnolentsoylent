@@ -22,6 +22,7 @@ export default class NewEventModal extends Component {
       newEventName: '',
       newEventStartTime: new Date(),
       newEventTags: '',
+      errorText: ''
     }
   }
 
@@ -44,6 +45,13 @@ export default class NewEventModal extends Component {
     });
   }
   handleSubmit () {
+
+    let context = this;
+    if(this.state.newEventName === ''){
+      this.setState({errorText: 'Please enter an event name!'})
+      return;
+    }
+
     let eventToBePosted = {
       name: this.state.newEventName,
       location: [],
@@ -77,7 +85,20 @@ export default class NewEventModal extends Component {
       body: JSON.stringify(eventToBePosted)
     })
     .then(response => {
-      console.log('~~~~~response headers', response)
+      this.setState({
+        errorText: 'Event created succesfully!',
+        newEventName: '',
+        newEventStartTime: new Date(),
+        newEventTags: '',
+      })
+      setTimeout(() => {
+        context.refs.newEventModal.close()
+        context.setState({
+          errorText: ''
+        })
+      }, 1000);
+      this.props.resetPin();
+      this.props.fetchNewEvents();
     })
     .catch( error => {
       console.log(error);
@@ -89,8 +110,9 @@ export default class NewEventModal extends Component {
       <Modal ref={'newEventModal'} style={styles.modal} isOpen={this.props.modalVisibility}>
         <View>
           <View style={styles.closeButtonContainer}>
+            <Text style={styles.errorText}>{this.state.errorText}</Text>
             <TouchableOpacity onPress={() => context.refs.newEventModal.close()}>
-            <Icon style={styles.closeButton} name='close'/>
+              <Icon style={styles.closeButton} name='close'/>
             </TouchableOpacity>
           </View>
 
@@ -109,16 +131,18 @@ export default class NewEventModal extends Component {
           <View style={styles.textInputContainer}>
             <TextInput
               style={styles.textInput}
-              placeholder='Separate tags for your Event with a space'
+              placeholder='Enter tags, separated by a space'
               onChangeText={(text) => this.setState({newEventTags: text})}
               />
           </View>
+
           <View style={styles.dateInputContainer}>
             <DatePickerIOS
               date={this.state.newEventStartTime}
               onDateChange={(d) => {this.setState({newEventStartTime:d})}}
             />
           </View>
+
           <View style={styles.friendsCheckGroup}>
             <Text>Invite your friends!</Text>
             {this.state.friends.map((friend, index) => {
@@ -132,13 +156,15 @@ export default class NewEventModal extends Component {
               )
             })}
           </View>
-          <View>
+
+          <View style={styles.visibilityCheck}>
             <Text>Make your event invite only?</Text>
             <MKCheckbox ref={'visibilityCheckbox'} checked={false}/>
           </View>
+
           <View style={styles.createEventButtonContainer}>
             <MKButton
-              backgroundColor='red'
+              style={styles.createEventButton}
               shadowRadius={2}
               shadowOffset={{width:0, height:2}}
               shadowOpacity={.7}
@@ -163,9 +189,16 @@ const styles = StyleSheet.create({
   modal: {
     marginTop: 40
   },
+  errorText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'red',
+    paddingLeft: 10
+  },
   closeButtonContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-end'
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   closeButton:{
     color: 'grey',
@@ -181,30 +214,54 @@ const styles = StyleSheet.create({
   },
   textInputContainer: {
     justifyContent:'center',
-    padding: 10
+    alignItems:'center',
+    margin: 10
   },
   textInput: {
+    flex:1,
     height: 36,
-    width: 300,
     padding: 4,
     marginRight: 5,
     flex: 4,
     fontSize: 18,
     borderWidth: 1,
     borderColor: 'grey',
-    borderRadius: 8,
     textAlign: 'center'
   },
   friendsCheckGroup: {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 5,
+    alignItems: 'center',
   },
   friendCheck: {
-
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'flex-start'
   },
+  visibilityCheck:{
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
+    alignItems: 'center',
+    flexDirection:'row',
+    justifyContent: 'flex-start'
+  },
   createEventButtonContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
     justifyContent: 'center'
+  },
+  createEventButton: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: 'red',
+    width: 150,
+    height: 40,
   }
 })
