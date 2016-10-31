@@ -5,8 +5,13 @@ mongoose.Promise = bluebird;
 
 var app = express();
 
+var port = 3000;
+
 // connect to mongo database named "sembly"
-if (process.argv[2] === 'production') {
+if (process.env.PRODUCTION == 'true') {
+  port = 80;
+  mongoose.connect(process.env.MONGODB_URI)
+} else if (process.argv[2] === 'production') {
   mongoose.connect('mongodb://localhost/sembly');		
 }
 
@@ -16,7 +21,7 @@ require('./routes.js')(app, express);
 
 // start listening to requests on port 3000
 mongoose.connection.on('connected', () => {
-	app.listen(3000, () => {
+	app.listen(port, () => {
     console.log('App is listening on port 3000')
   });
 });
