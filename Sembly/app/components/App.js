@@ -44,13 +44,13 @@ export default class App extends Component {
       return <Map user={app.state.user} mongoLocation={app.state.mongoLocation} navigator={navigator}/>
     }
     if(route.name === 'Feed') {
-      return <Feed user={app.state.user} mongoLocation={app.state.mongoLocation} page={'bundle'} navigator={navigator}/>
+      return <Feed name={route.name} user={app.state.user} mongoLocation={app.state.mongoLocation} page={'bundle'} navigator={navigator}/>
     }
     if(route.name === 'Invites') {
-      return <Feed user={app.state.user} page={'invited'} navigator={navigator}/>
+      return <Feed name={'Invited To'} user={app.state.user} page={'invited'} navigator={navigator}/>
     }
     if(route.name === 'Saved') {
-      return <Feed user={app.state.user} page={'saved'} navigator={navigator}/>
+      return <Feed name={route.name} user={app.state.user} page={'saved'} navigator={navigator}/>
     }
   }
 
