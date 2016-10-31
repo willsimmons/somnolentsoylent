@@ -109,7 +109,7 @@ export default class Feed extends Component {
   render(){
     if (this.state.loading) {
       return (
-        <OurDrawer topBarFilterVisible={false} topBarName={'Feed'} _navigate={_navigate.bind(this)}>
+        <OurDrawer user={this.props.user} topBarFilterVisible={false} topBarName={'Feed'} _navigate={_navigate.bind(this)}>
           <View>
             <Text>Loading...</Text>
           </View>  
@@ -117,7 +117,7 @@ export default class Feed extends Component {
         )
     }
     return (
-      <OurDrawer topBarFilterVisible={false} topBarName={this.props.name} _navigate={_navigate.bind(this)}>
+      <OurDrawer user={this.props.user} topBarFilterVisible={false} topBarName={this.props.name} _navigate={_navigate.bind(this)}>
         <ScrollView>
           {this.state.events.map( (event, index) => <EventCard key={index} openModal={this.openEvent.bind(this)} event={event} index={index}/>)}
         </ScrollView>

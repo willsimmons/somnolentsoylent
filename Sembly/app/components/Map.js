@@ -54,7 +54,7 @@ export default class Map extends Component {
   render () {
     if(this.state.loading){
       return (
-        <OurDrawer topBarFilterVisible={true} topBarName={'Map'} _navigate={ _navigate.bind(this)}>
+        <OurDrawer user={this.props.user} topBarFilterVisible={true} topBarName={'Map'} _navigate={ _navigate.bind(this)}>
           <View>
             <Text style={styles.loading}>Loading...</Text>
           </View>
@@ -63,7 +63,7 @@ export default class Map extends Component {
     }
     else {
       return (
-        <OurDrawer topBarFilterVisible={true} topBarName={'Map'} _navigate={ _navigate.bind(this)}>
+        <OurDrawer user={this.props.user} topBarFilterVisible={true} topBarName={'Map'} _navigate={ _navigate.bind(this)}>
           <View>
             <MapView
               showsUserLocation={true}
