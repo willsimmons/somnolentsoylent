@@ -13,6 +13,34 @@ export default class EventCard extends Component {
   constructor(props) {
     super(props);
   }
+
+  transformDate(dateStr){
+    var months = [ "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December" ];
+    var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    var dateUsed = new Date(dateStr);
+
+    var amOrPm = '';
+    var day = days[dateUsed.getDay() - 1] + ' ';
+    var dateArr = dateUsed.toString().split(' ');
+    var part1 = dateArr.slice(1,2).join('. ') + '. ';
+    var part2 = dateArr.slice(2, 3).toString() + ' at ';
+    var time = dateArr.slice(4, 5).toString();
+    var hour = +(time.split(':')[0]);
+    if(hour >= 12){
+      amOrPm = ' pm';
+    } else {
+      amOrPm = ' am';
+    }
+    hour = hour > 12 ? hour - 12 : hour;
+    var part4 = (dateArr.slice(4,5)).toString().split(':');
+    part4.shift();
+    part4.pop();
+
+
+    return day + part1 + part2 + hour + ':' + part4 + amOrPm;
+  }
+
   render () {
     var time;
     var stats = this.props.event.invitedUsers.length + ' Users invited  ' + this.props.event.savedUsers.length + ' Users Saved  ' + this.props.event.checkedInUsers.length + ' Users Checked In';
@@ -21,6 +49,7 @@ export default class EventCard extends Component {
     } else {
       time = this.props.event.startTime
     }
+    var time = this.transformDate( time );
     var background = this.props.index % 2 === 0 ? '#F5FCFF' : '#fff'
     return (
       <View>
