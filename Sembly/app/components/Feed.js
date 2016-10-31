@@ -5,7 +5,8 @@ import {
   View,
   Navigator,
   TouchableHighlight,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from 'react-native';
 
 import Drawer from 'react-native-drawer';
@@ -117,9 +118,9 @@ export default class Feed extends Component {
     }
     return (
       <OurDrawer topBarFilterVisible={false} topBarName={'Feed'} _navigate={_navigate.bind(this)}>
-        <View>
+        <ScrollView>
           {this.state.events.map( (event, index) => <EventCard openModal={this.openEvent.bind(this)} event={event} index={index}/>)}
-        </View>
+        </ScrollView>
         <NewEventFab onPress={this.openModal.bind(this)}/>
         {this.getModal()} 
         <NewEventModal visibility={this.state.addEventModal}/>

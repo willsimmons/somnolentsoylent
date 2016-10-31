@@ -7,7 +7,8 @@ import {
   View,
   Image,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from 'react-native';
 
 import Spinner from './Spinner.js';
@@ -104,9 +105,9 @@ export default class EventModal extends Component {
   					<TouchableOpacity style={styles.button} onPress={e => this.changeUsers('saved')}><Text style={styles.buttonText}>Saved</Text></TouchableOpacity>
   					<TouchableOpacity style={styles.button} onPress={e => this.changeUsers('checkedin')}><Text style={styles.buttonText}>Checked In</Text></TouchableOpacity>
   				</View>
-  				<View>
+  				<ScrollView>
   				{this.getUsers()}
-  				</View>
+  				</ScrollView>
   			</View>
   			)
   	}
@@ -132,6 +133,9 @@ export default class EventModal extends Component {
 const styles = StyleSheet.create({
   modal: {
     marginTop: 40
+  },
+  scroll: {
+  	flex: 1
   },
   container: {
     flexDirection: 'row',
