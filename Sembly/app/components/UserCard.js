@@ -161,9 +161,9 @@ const styles = StyleSheet.create({
     color: 'black'
   },
   image: {
-  	borderRadius:4,
-  	height:55, 
-  	width:55, 
+  	borderRadius: 25,
+  	height: 50, 
+  	width: 50, 
   	marginRight:10
   },
   buttons: {
