@@ -55,10 +55,10 @@ html {
 	height: auto;
 	border-radius:20px;
 	margin-bottom:75px;
+	box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.65);
 }
 
 .parrallax {
-	margin-top:75px;
 	background-image: url('landing.jpeg');
 	background-attachment: fixed;
     background-position: center;
@@ -73,6 +73,7 @@ html {
 
 .parrallax h1 {
 	line-height:300px;
+	margin: 0px;
 }
 
 .text {

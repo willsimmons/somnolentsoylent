@@ -16,10 +16,105 @@ import UserCard from './UserCard.js';
 import Modal from 'react-native-modalbox';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+const styles = StyleSheet.create({
+  modal: {
+    marginTop: 40,
+    flex: 1
+  },
+  scroll: {
+  	flex: 1
+  },
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  title: {
+  	fontSize: 40,
+  	color: 'black',
+  	alignSelf: 'center'
+  },
+  absolute: {
+    position: 'absolute',
+    top: 40,
+    left: 15
+  },
+  absoluteX: {
+    position: 'absolute',
+    top: 10,
+    right: 15,
+  },
+  closeButton:{
+    fontSize: 30,
+    zIndex: 3,
+    backgroundColor: 'transparent'
+  },
+  description: {
+    marginBottom: 10,
+    fontSize: 18,
+    textAlign: 'center',
+    color: '#656565'
+  },
+  flowRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'stretch'
+  },
+  buttonText: {
+    fontSize: 14,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'red',
+    borderColor: 'red',
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
+  selected: {
+    height: 36,
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'blue',
+    borderColor: 'red',
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
+  searchInput: {
+    height: 36,
+    padding: 4,
+    marginRight: 5,
+    flex: 4,
+    fontSize: 18,
+    borderColor: 'grey',
+    borderRadius: 8,
+    color: 'black',
+  },
+  image: {
+    height:200, 
+    marginBottom: 20,
+    zIndex: 1
+  }
+});
+
 export default class EventModal extends Component {
   constructor (props) {
     super(props);
-    this.state = {visible: false, loading: true};
+    this.state = {
+    	visible: false,
+    	loading: true,
+    	button: styles.button,
+    	selected: styles.selected,
+    	invitedStyle: styles.selected,
+    	savedStyle: styles.button,
+    	checkedStyle: styles.button
+    };
   }
   componentWillMount() {
   	this.setState({loading:true})
@@ -38,11 +133,24 @@ export default class EventModal extends Component {
   }
   changeUsers(type) {
   	if (type === 'invited') {
-  		this.setState({users: this.state.event.invitedUsers})
+  		this.setState({
+  			users: this.state.event.invitedUsers,
+  			savedStyle: this.state.button,
+  			invitedStyle: this.state.selected,
+  			checkedStyle: this.state.button
+  		})
   	} else if (type === 'saved') {
-  		this.setState({users: this.state.event.savedUsers})
+  		this.setState({
+  			users: this.state.event.savedUsers,
+  			savedStyle: this.state.selected,
+  			invitedStyle: this.state.button,
+  			checkedStyle: this.state.button})
   	} else {
-  		this.setState({users: this.state.event.checkedInUsers})
+  		this.setState({
+  			users: this.state.event.checkedInUsers,
+  			savedStyle: this.state.button,
+  			invitedStyle: this.state.button,
+  			checkedStyle: this.state.selected})
   	}
   }
   saveEvent() {
@@ -101,9 +209,9 @@ export default class EventModal extends Component {
   					<TouchableOpacity style={styles.button} onPress={e => this.checkIn()}><Text style={styles.buttonText}>Check In!</Text></TouchableOpacity>
   				</View>
   				<View style={styles.flowRight}>
-  					<TouchableOpacity style={styles.button} onPress={e => this.changeUsers('invited')}><Text style={styles.buttonText}>Invited</Text></TouchableOpacity>
-  					<TouchableOpacity style={styles.button} onPress={e => this.changeUsers('saved')}><Text style={styles.buttonText}>Saved</Text></TouchableOpacity>
-  					<TouchableOpacity style={styles.button} onPress={e => this.changeUsers('checkedin')}><Text style={styles.buttonText}>Checked In</Text></TouchableOpacity>
+  					<TouchableOpacity style={this.state.invitedStyle} onPress={e => this.changeUsers('invited')}><Text style={styles.buttonText}>Invited</Text></TouchableOpacity>
+  					<TouchableOpacity style={this.state.savedStyle} onPress={e => this.changeUsers('saved')}><Text style={styles.buttonText}>Saved</Text></TouchableOpacity>
+  					<TouchableOpacity style={this.state.checkedStyle} onPress={e => this.changeUsers('checkedin')}><Text style={styles.buttonText}>Checked In</Text></TouchableOpacity>
   				</View>
   				<ScrollView>
   				{this.getUsers()}
@@ -130,78 +238,3 @@ export default class EventModal extends Component {
 }
 
 
-const styles = StyleSheet.create({
-  modal: {
-    marginTop: 40
-  },
-  scroll: {
-  	flex: 1
-  },
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
-  title: {
-  	fontSize: 40,
-  	color: 'black',
-  	alignSelf: 'center'
-  },
-  absolute: {
-    position: 'absolute',
-    top: 40,
-    left: 15
-  },
-  absoluteX: {
-    position: 'absolute',
-    top: 10,
-    right: 15,
-  },
-  closeButton:{
-    fontSize: 30,
-    zIndex: 3,
-    backgroundColor: 'transparent'
-  },
-  description: {
-    marginBottom: 10,
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#656565'
-  },
-  flowRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'stretch'
-  },
-  buttonText: {
-    fontSize: 14,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: 'red',
-    borderColor: 'red',
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-  },
-  searchInput: {
-    height: 36,
-    padding: 4,
-    marginRight: 5,
-    flex: 4,
-    fontSize: 18,
-    borderColor: 'grey',
-    borderRadius: 8,
-    color: 'black',
-  },
-  image: {
-    height:200, 
-    width: Dimensions.get('window').width,
-    marginBottom: 20,
-    zIndex: 1
-  }
-})

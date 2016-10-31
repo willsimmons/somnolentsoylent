@@ -25,10 +25,8 @@
 ## Requirements
 
 - Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Mongo
+- React-Native-Cli
 
 ## Development
 
@@ -37,9 +35,51 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
+```
+
+From within Sembly directory:
+
+```sh
+npm install
+```
+
+###Testing
+
+From within the root directory:
+
+```sh
+npm test
+```
+
+###Adding Test Data
+
+To prepopulate database for easier development...
+From within the root directory:
+
+```sh
+npm run populate
+```
+
+###Starting the app
+
+With your mongo database runnning
+Start the server from the root directory:
+
+```sh
+npm start
+```
+
+From the Sembly directory in one terminal:
+
+```sh
+npm start
+```
+
+and in another terminal: 
+
+```sh
+npm run build
 ```
 
 ### Roadmap
