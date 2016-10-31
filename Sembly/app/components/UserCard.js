@@ -21,15 +21,73 @@ export default class UserCard extends Component {
   }
 
   addFriend() {
-
+    fetch('http://localhost:3000/api/friends/friendRequest',{
+      method: 'POST',
+      headers: { "Content-Type" : "application/json" },
+      body: JSON.stringify({userId: this.props.currentUserId, friendId: this.props.user._id})
+    })
+    .then(response => {
+      // alert(response.status)
+      return response.json();
+    })
+    .catch( error => {
+      console.log(error);
+    });
   }
 
   removeFriend() {
-
+    // alert('removeFriend')
+    // alert(this.props.user.firstName + this.props.user._id)
+    // alert(this.props.currentUserId)
+    fetch('http://localhost:3000/api/friends/removeFriend',{
+      method: 'POST',
+      headers: { "Content-Type" : "application/json" },
+      body: JSON.stringify({userId: this.props.currentUserId, friendId: this.props.user._id})
+    })
+    .then(response => {
+      // alert(response.status)
+      this.props.refreshUserFriends();
+      return response.json();
+    })
+    .catch( error => {
+      console.log(error);
+    });
   }
-
+ 
   acceptRequest() {
-  	
+  	// alert('acceptRequest')
+    fetch('http://localhost:3000/api/friends/acceptRequest',{
+      method: 'POST',
+      headers: { "Content-Type" : "application/json" },
+      body: JSON.stringify({userId: this.props.currentUserId, friendId: this.props.user._id})
+    })
+    .then(response => {
+      // alert(response.status)
+      this.props.refreshUserFriends();
+      this.props.getNewRequests(this);
+      return response.json();
+    })
+    .catch( error => {
+      console.log(error);
+    });
+  } 
+
+  rejectRequest(){
+    // alert('rejectRequest')
+    fetch('http://localhost:3000/api/friends/rejectRequest',{
+      method: 'POST',
+      headers: { "Content-Type" : "application/json" },
+      body: JSON.stringify({userId: this.props.currentUserId, friendId: this.props.user._id})
+    })
+    .then(response => {
+      // alert(response.status)
+      this.props.refreshUserFriends();
+      this.props.getNewRequests(this);
+      return response.json();
+    })
+    .catch( error => {
+      console.log(error);
+    });
   }
 
   render () {
@@ -66,11 +124,17 @@ export default class UserCard extends Component {
 	          <Text style={styles.states}>{this.props.user.friends.length + ' Friends'}</Text>
           </View>
           <View style={styles.buttons}>
-            <TouchableOpacity>
-              {this.props.view === 'Requests' ? <Icon name='add-circle' style={styles.icon}></Icon> : <Text></Text>}
+            <TouchableOpacity onPress={this.removeFriend.bind(this)}>
+              {this.props.view === 'Friends' ? <Text></Text> : <Text></Text>}
             </TouchableOpacity>
-            <TouchableOpacity>
-              {this.props.view === 'Requests' ? <Icon name='remove' style={styles.icon}></Icon> : <Text></Text>}
+            <TouchableOpacity onPress={this.addFriend.bind(this)}>
+              {this.props.view === 'Users' ? <Icon name='person-add' style={styles.icon}></Icon> : <Text></Text>}
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.acceptRequest.bind(this)}>
+              {this.props.view === 'Requests' ? <Icon name='person-add' style={styles.icon}></Icon> : <Text></Text>}
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.rejectRequest.bind(this)}>
+              {this.props.view === 'Requests' ? <Icon name='cancel' style={styles.icon}></Icon> : <Text></Text>}
             </TouchableOpacity>
           </View>
 	      </TouchableOpacity>
