@@ -22,6 +22,70 @@ import UserCard from './UserCard.js';
 
 import _navigate from './navigateConfig.js';
 
+var styles = StyleSheet.create({
+  description: {
+    marginBottom: 10,
+    fontSize: 18,
+    textAlign: 'center',
+    color: '#656565'
+  },
+  container: {
+    padding: 10,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  innerNav: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    backgroundColor: 'red'
+  },
+  flowRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'stretch'
+  },
+  buttonText: {
+    fontSize: 14,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    margin: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'red',
+  },
+  searchInput: {
+    height: 36,
+    flex: 4,
+    fontSize: 18,
+    color: 'black'
+  },
+  image: {
+    borderRadius: 100,
+    height:200,
+    width:200,
+    marginRight:10,
+    marginBottom: 20
+  },
+  spinner: {
+    padding: 30,
+    marginTop: 200,
+    alignItems: 'center'
+  }
+});
+
 export default class Profile extends Component {
   constructor(props){
     super(props);
@@ -166,9 +230,9 @@ export default class Profile extends Component {
           <Text style={styles.description}>
             Email: {this.props.user.email}
           </Text>
-          <View style={styles.flowRight}>
+          <View style={styles.innerNav}>
             <TouchableOpacity onPress={this.filterFriends.bind(this)} style={styles.button}>
-              <Text style={styles.buttonText}>Friends</Text>
+              <Text style={styles.buttonText}>Search Friends</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={this.filterUsers.bind(this)} style={styles.button}>
               <Text style={styles.buttonText}>Search Users</Text>
@@ -177,7 +241,7 @@ export default class Profile extends Component {
               <Text style={styles.buttonText}>Friend Requests</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.flowRight}>
+          <View style={styles.inputContainer}>
             <TextInput
               style={styles.searchInput}
               placeholder='Search via name or email'
@@ -215,61 +279,3 @@ export default class Profile extends Component {
     )
   }
 };
-
-var styles = StyleSheet.create({
-  description: {
-    marginBottom: 10,
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#656565'
-  },
-  container: {
-    padding: 10,
-    marginTop: 10,
-    alignItems: 'center',
-  },
-  flowRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'stretch'
-  },
-  buttonText: {
-    fontSize: 14,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: 'red',
-    borderColor: 'red',
-    borderWidth: 1,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    marginRight: 2
-  },
-  searchInput: {
-    height: 36,
-    padding: 4,
-    marginRight: 5,
-    flex: 4,
-    fontSize: 18,
-    borderWidth: 1,
-    borderColor: 'grey',
-    color: 'black',
-  },
-  image: {
-    borderRadius: 100,
-    height:200,
-    width:200,
-    marginRight:10,
-    marginBottom: 20
-  },
-  spinner: {
-    padding: 30,
-    marginTop: 200,
-    alignItems: 'center'
-  }
-});
