@@ -13,6 +13,7 @@ import {
 
 import Drawer from 'react-native-drawer';
 
+import Spinner from './Spinner.js'
 
 import TopBar from './TopBar.js';
 import OurDrawer from './OurDrawer.js';
@@ -48,7 +49,7 @@ export default class Profile extends Component {
     })
     .then( users => {
       this.setState({
-        feed: users,  
+        feed: users,
         loading: false
       });
     })
@@ -58,7 +59,7 @@ export default class Profile extends Component {
   }
 
   //need a better way to get the rest of refreshed version of friend requests
-  //every time we go back in we use the old version of the user when we logged in, not 
+  //every time we go back in we use the old version of the user when we logged in, not
   //the new version in the database
   //set new user each time a change is done?
   getNewRequests(context){
@@ -74,7 +75,7 @@ export default class Profile extends Component {
         this.setState({
           requests: requests
         });
-     }) 
+     })
      .catch( error => {
       console.log(error);
     });
@@ -93,7 +94,7 @@ export default class Profile extends Component {
     .then( friends => {
       if(search.length>0){
         this.setState({
-          feed: friends,  
+          feed: friends,
           loading: false
         });
       }
@@ -147,9 +148,9 @@ export default class Profile extends Component {
     if (this.state.loading) {
       return (
         <OurDrawer topBarFilterVisible={false} topBarName={'Feed'} _navigate={_navigate.bind(this)}>
-          <View>
-            <Text>Loading...</Text>
-          </View>  
+          <View style={styles.spinner}>
+            <Spinner/>
+          </View>
         </OurDrawer>
         )
     }
@@ -161,10 +162,10 @@ export default class Profile extends Component {
           <Image style={styles.image} source={{uri: this.props.user.photoUrl}}/>
           <Text style={styles.description}>
             Name: {this.props.user.firstName + ' ' + this.props.user.lastName}
-          </Text> 
+          </Text>
           <Text style={styles.description}>
             Email: {this.props.user.email}
-          </Text> 
+          </Text>
           <View style={styles.flowRight}>
             <TouchableOpacity onPress={this.filterFriends.bind(this)} style={styles.button}>
               <Text style={styles.buttonText}>Friends</Text>
@@ -188,23 +189,23 @@ export default class Profile extends Component {
           </View>
         </View>
         <ScrollView>
-          {this.state.feed.map( 
-            (friend, index) => { 
+          {this.state.feed.map(
+            (friend, index) => {
               return (
-                <UserCard 
+                <UserCard
                   key={index}
                   refreshUserFriends={
                     ()=> {
                       this.setState({view: 'Friends'});
                       this.getFriends();
                     }
-                  } 
+                  }
                   getNewRequests = {
                     (context) => this.getNewRequests(context)
                   }
-                  currentUserId={this.props.user._id} 
-                  view={this.state.view} 
-                  user={friend} 
+                  currentUserId={this.props.user._id}
+                  view={this.state.view}
+                  user={friend}
                   index={index}/>
               )
             }
@@ -226,9 +227,6 @@ var styles = StyleSheet.create({
     padding: 10,
     marginTop: 10,
     alignItems: 'center',
-    // backgroundColor: 'blue',
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   flowRight: {
     flexDirection: 'row',
@@ -247,7 +245,6 @@ var styles = StyleSheet.create({
     backgroundColor: 'red',
     borderColor: 'red',
     borderWidth: 1,
-    borderRadius: 8,
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -261,50 +258,18 @@ var styles = StyleSheet.create({
     fontSize: 18,
     borderWidth: 1,
     borderColor: 'grey',
-    borderRadius: 8,
     color: 'black',
   },
   image: {
     borderRadius: 100,
-    height:200, 
-    width:200, 
+    height:200,
+    width:200,
     marginRight:10,
     marginBottom: 20
+  },
+  spinner: {
+    padding: 30,
+    marginTop: 200,
+    alignItems: 'center'
   }
 });
-
-//  const drawerStyles = {
-//   drawer: {
-//   backgroundColor: 'red', 
-//   shadowColor: '#000000', 
-//   shadowOpacity: 0.8, 
-//   shadowRadius: 3,
-//   }
-// }
-
-// const styles = StyleSheet.create({
-//   listElem: {
-//     fontSize: 20,
-//     fontWeight: 'bold',
-//     color: 'white',
-//     marginTop: 20,
-//     alignItems: 'center',
-//     borderStyle: 'solid',
-//     borderWidth: 2,
-//     borderColor: 'black',
-//     width: 225,
-//     padding: 10,
-//     paddingLeft: 80
-
-//   },
-//   button: {
-//     fontSize: 20,
-//     color: 'white',
-//     backgroundColor: 'red',
-//     padding: 10,
-//     alignItems: 'center',
-//     fontWeight: 'bold',
-//     justifyContent: 'center',
-    
-//   }
-// });

@@ -9,6 +9,8 @@ import {
   ScrollView
 } from 'react-native';
 
+import Spinner from './Spinner.js'
+
 import Drawer from 'react-native-drawer';
 import NewEventModal from './NewEventModal.js';
 import EventModal from './EventModal.js';
@@ -110,9 +112,9 @@ export default class Feed extends Component {
     if (this.state.loading) {
       return (
         <OurDrawer user={this.props.user} topBarFilterVisible={false} topBarName={'Feed'} _navigate={_navigate.bind(this)}>
-          <View>
-            <Text>Loading...</Text>
-          </View>  
+          <View style={styles.spinner}>
+            <Spinner />
+          </View>
         </OurDrawer>
         )
     }
@@ -122,7 +124,7 @@ export default class Feed extends Component {
           {this.state.events.map( (event, index) => <EventCard key={index} openModal={this.openEvent.bind(this)} event={event} index={index}/>)}
         </ScrollView>
         <NewEventFab onPress={this.openModal.bind(this)}/>
-        {this.getModal()} 
+        {this.getModal()}
         <NewEventModal visibility={this.state.addEventModal}/>
       </OurDrawer>
     )
@@ -131,9 +133,9 @@ export default class Feed extends Component {
 
  const drawerStyles = {
   drawer: {
-  backgroundColor: 'red', 
-  shadowColor: '#000000', 
-  shadowOpacity: 0.8, 
+  backgroundColor: 'red',
+  shadowColor: '#000000',
+  shadowOpacity: 0.8,
   shadowRadius: 3,
   }
 }
@@ -161,6 +163,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontWeight: 'bold',
     justifyContent: 'center',
-    
+  },
+  spinner: {
+    padding: 30,
+    marginTop: 200,
+    alignItems: 'center'
   }
 });

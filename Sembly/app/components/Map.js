@@ -8,6 +8,8 @@ import {
   Dimensions
 } from 'react-native';
 
+import Spinner from './Spinner.js'
+
 import MapView from 'react-native-maps';
 import NewEventModal from './NewEventModal.js';
 import OurDrawer from './OurDrawer.js';
@@ -21,13 +23,17 @@ export default class Map extends Component {
       loading: true,
       markers: null,
       modalVisible: false,
-      x: {
-        latitude: this.props.mongoLocation[1] + .005,
-        longitude: this.props.mongoLocation[0] + .005
-      }
     };
   }
-  componentWillMount () {
+
+  setNewEventPinCoords () {
+    this.setState({x: {
+      latitude: this.props.mongoLocation[1] + .0005,
+      longitude: this.props.mongoLocation[0] + .0005
+    } })
+  }
+
+  fetchEvents () {
     fetch('http://localhost:3000/api/events/bundle', {
       method: 'POST',
       headers: {
@@ -42,11 +48,16 @@ export default class Map extends Component {
       return data.json()
     })
     .then(data => {
+      console.log('inside fetchEvents', data);
       this.setState({markers: data, loading: false})
     })
     .catch((err) => {
       console.log(err);
     })
+  }
+  componentWillMount () {
+    this.setNewEventPinCoords();
+    this.fetchEvents();
   }
   openModal () {
     this.setState({modalVisible: true})
@@ -55,8 +66,8 @@ export default class Map extends Component {
     if(this.state.loading){
       return (
         <OurDrawer user={this.props.user} topBarFilterVisible={true} topBarName={'Map'} _navigate={ _navigate.bind(this)}>
-          <View>
-            <Text style={styles.loading}>Loading...</Text>
+          <View style={styles.spinner}>
+            <Spinner />
           </View>
         </OurDrawer>
       )
@@ -96,7 +107,7 @@ export default class Map extends Component {
             })}
             </MapView>
             <NewEventFab onPress={this.openModal.bind(this)}/>
-            <NewEventModal userId={this.props.user._id} eventCoords={this.state.x} modalVisibility={this.state.modalVisible}/>
+            <NewEventModal resetPin={this.setNewEventPinCoords.bind(this)} fetchNewEvents={this.fetchEvents.bind(this)} userId={this.props.user._id} eventCoords={this.state.x} modalVisibility={this.state.modalVisible}/>
           </View>
         </OurDrawer>
       )
@@ -107,10 +118,10 @@ export default class Map extends Component {
 const styles = StyleSheet.create({
   map: {
     height: Dimensions.get('window').height - 60,
-    zIndex: 0
   },
-  loading: {
-    fontSize: 75,
-    fontWeight: 'bold',
+  spinner: {
+    padding: 30,
+    marginTop: 200,
+    alignItems: 'center'
   }
 });
