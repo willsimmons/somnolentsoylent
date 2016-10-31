@@ -8,6 +8,8 @@ import {
   Dimensions
 } from 'react-native';
 
+import Spinner from './Spinner.js'
+
 import MapView from 'react-native-maps';
 import NewEventModal from './NewEventModal.js';
 import OurDrawer from './OurDrawer.js';
@@ -21,10 +23,6 @@ export default class Map extends Component {
       loading: true,
       markers: null,
       modalVisible: false,
-      // x: {
-      //   latitude: this.props.mongoLocation[1] + .0005,
-      //   longitude: this.props.mongoLocation[0] + .0005
-      // }
     };
   }
 
@@ -68,8 +66,8 @@ export default class Map extends Component {
     if(this.state.loading){
       return (
         <OurDrawer user={this.props.user} topBarFilterVisible={true} topBarName={'Map'} _navigate={ _navigate.bind(this)}>
-          <View>
-            <Text style={styles.loading}>Loading...</Text>
+          <View style={styles.spinner}>
+            <Spinner />
           </View>
         </OurDrawer>
       )
@@ -120,10 +118,10 @@ export default class Map extends Component {
 const styles = StyleSheet.create({
   map: {
     height: Dimensions.get('window').height - 60,
-    zIndex: 0
   },
-  loading: {
-    fontSize: 75,
-    fontWeight: 'bold',
+  spinner: {
+    padding: 30,
+    marginTop: 200,
+    alignItems: 'center'
   }
 });

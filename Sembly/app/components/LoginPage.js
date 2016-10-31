@@ -30,7 +30,6 @@ button: {
   backgroundColor: 'red',
   borderColor: 'red',
   borderWidth: 1,
-  borderRadius: 8,
   marginBottom: 10,
   alignSelf: 'stretch',
   justifyContent: 'center'
@@ -74,7 +73,7 @@ export default class LoginPage extends Component {
     if (this.state.loading) {
       return (<View style={styles.container}><Spinner/></View>)
     }
-    else {  
+    else {
       return (
         <View>
           <View style={styles.container}>
@@ -83,8 +82,7 @@ export default class LoginPage extends Component {
             </TouchableOpacity>
           </View>
         </View>
-      );  
+      );
     }
   }
 };
-
