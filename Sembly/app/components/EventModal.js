@@ -119,6 +119,32 @@ export default class EventModal extends Component {
   componentWillMount() {
   	this.setState({loading:true})
   }
+  transformDate(dateStr){
+    var months = [ "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December" ];
+    var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    var dateUsed = new Date(dateStr);
+
+    var amOrPm = '';
+    var day = days[dateUsed.getDay() - 1] + ' ';
+    var dateArr = dateUsed.toString().split(' ');
+    var part1 = dateArr.slice(1,2).join('. ') + '. ';
+    var part2 = dateArr.slice(2, 3).toString() + ' at ';
+    var time = dateArr.slice(4, 5).toString();
+    var hour = +(time.split(':')[0]);
+    if(hour >= 12){
+      amOrPm = ' pm';
+    } else {
+      amOrPm = ' am';
+    }
+    hour = hour > 12 ? hour - 12 : hour;
+    var part4 = (dateArr.slice(4,5)).toString().split(':');
+    part4.shift();
+    part4.pop();
+
+
+    return day + part1 + part2 + hour + ':' + part4 + amOrPm;
+  }
   getEvent() {
   	fetch('http://localhost:3000/api/events/' + this.props.event)
     .then(response => {
@@ -202,7 +228,7 @@ export default class EventModal extends Component {
 	  				<Text style={styles.title} >{this.state.event.name}</Text>
   				</View>
   				<View>
-  				  <Text style={styles.description}>{this.state.event.startTime}</Text>
+  				  <Text style={styles.description}>{this.transformDate(this.state.event.startTime)}</Text>
   				</View>
   				<View style={styles.flowRight}>
   					<TouchableOpacity style={styles.button} onPress={e => this.saveEvent()}><Text style={styles.buttonText}>Save Event!</Text></TouchableOpacity>
