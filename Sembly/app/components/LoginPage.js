@@ -27,8 +27,8 @@ buttonText: {
 button: {
   height: 36,
   flex: 1,
-  backgroundColor: 'red',
-  borderColor: 'red',
+  backgroundColor: '#F44336',
+  borderColor: '#F44336',
   borderWidth: 1,
   marginBottom: 10,
   alignSelf: 'stretch',

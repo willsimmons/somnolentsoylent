@@ -68,9 +68,8 @@ const styles = StyleSheet.create({
     height: 36,
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'red',
-    borderColor: 'red',
-    borderRadius: 8,
+    backgroundColor: '#F44336',
+    borderColor: '#F44336',
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -79,9 +78,8 @@ const styles = StyleSheet.create({
     height: 36,
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'blue',
-    borderColor: 'red',
-    borderRadius: 8,
+    backgroundColor: '#3F51B5',
+    borderColor: '#F44336',
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -93,11 +91,11 @@ const styles = StyleSheet.create({
     flex: 4,
     fontSize: 18,
     borderColor: 'grey',
-    borderRadius: 8,
     color: 'black',
   },
   image: {
     height:200, 
+    width: Dimensions.get('window').width,
     marginBottom: 20,
     zIndex: 1
   }
@@ -118,6 +116,32 @@ export default class EventModal extends Component {
   }
   componentWillMount() {
   	this.setState({loading:true})
+  }
+  transformDate(dateStr){
+    var months = [ "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December" ];
+    var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    var dateUsed = new Date(dateStr);
+
+    var amOrPm = '';
+    var day = days[dateUsed.getDay() - 1] + ' ';
+    var dateArr = dateUsed.toString().split(' ');
+    var part1 = dateArr.slice(1,2).join('. ') + '. ';
+    var part2 = dateArr.slice(2, 3).toString() + ' at ';
+    var time = dateArr.slice(4, 5).toString();
+    var hour = +(time.split(':')[0]);
+    if(hour >= 12){
+      amOrPm = ' pm';
+    } else {
+      amOrPm = ' am';
+    }
+    hour = hour > 12 ? hour - 12 : hour;
+    var part4 = (dateArr.slice(4,5)).toString().split(':');
+    part4.shift();
+    part4.pop();
+
+
+    return day + part1 + part2 + hour + ':' + part4 + amOrPm;
   }
   getEvent() {
   	fetch('http://localhost:3000/api/events/' + this.props.event)
@@ -202,7 +226,7 @@ export default class EventModal extends Component {
 	  				<Text style={styles.title} >{this.state.event.name}</Text>
   				</View>
   				<View>
-  				  <Text style={styles.description}>{this.state.event.startTime}</Text>
+  				  <Text style={styles.description}>{this.transformDate(this.state.event.startTime)}</Text>
   				</View>
   				<View style={styles.flowRight}>
   					<TouchableOpacity style={styles.button} onPress={e => this.saveEvent()}><Text style={styles.buttonText}>Save Event!</Text></TouchableOpacity>
@@ -223,7 +247,7 @@ export default class EventModal extends Component {
   render () {
     let context = this;
     return (
-      <Modal ref={'EventModal'} style={styles.modal} isOpen={true}>
+      <Modal ref={'EventModal'} onClosed={(e) => this.props.close()} style={styles.modal} isOpen={true}>
         <View style={styles.container}>
           {this.getRender()}
           <View style={styles.absoluteX}>

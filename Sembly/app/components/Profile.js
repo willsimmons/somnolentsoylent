@@ -22,13 +22,89 @@ import UserCard from './UserCard.js';
 
 import _navigate from './navigateConfig.js';
 
+var styles = StyleSheet.create({
+  description: {
+    marginBottom: 10,
+    fontSize: 18,
+    textAlign: 'center',
+    color: '#656565'
+  },
+  container: {
+    padding: 10,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  innerNav: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'stretch'
+  },
+  flowRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'stretch'
+  },
+  buttonText: {
+    fontSize: 14,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    flex: 1,
+    backgroundColor: '#F44336',
+    flexDirection: 'row',
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
+  selected: {
+    height: 36,
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#3F51B5',
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    margin: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F44336',
+  },
+  searchInput: {
+    height: 36,
+    flex: 4,
+    fontSize: 18,
+    color: 'black'
+  },
+  image: {
+    borderRadius: 100,
+    height:200,
+    width:200,
+    marginRight:10,
+    marginBottom: 20
+  },
+  spinner: {
+    padding: 30,
+    marginTop: 200,
+    alignItems: 'center'
+  }
+});
+
 export default class Profile extends Component {
   constructor(props){
     super(props);
     this.state = {
       loading: true,
       searchString: '',
-      view: 'Friends'
+      view: 'Friends',
+      friendS: styles.selected,
+      userS: styles.button,
+      requestS: styles.button
     };
   }
 
@@ -115,17 +191,28 @@ export default class Profile extends Component {
 
   filterFriends(){
     this.setState({view: 'Friends'});
-    this.setState({feed: this.state.friends});
+    this.setState({feed: this.state.friends,
+    friendS: styles.selected,
+      requestS: styles.button,
+      userS:styles.button});
   }
 
   filterUsers(){
     this.setState({view: 'Users'});
-    this.setState({feed: []});
+    this.setState({
+      feed: [],
+      friendS: styles.button,
+      requestS: styles.button,
+      userS:styles.selected
+    });
   }
 
   filterRequests(){
     this.setState({view: 'Requests'});
-    this.setState({feed: this.state.requests});
+    this.setState({feed: this.state.requests,
+    friendS: styles.button,
+      requestS: styles.selected,
+      userS:styles.button});
   }
 
   onSearchTextChange(event){
@@ -166,18 +253,18 @@ export default class Profile extends Component {
           <Text style={styles.description}>
             Email: {this.props.user.email}
           </Text>
-          <View style={styles.flowRight}>
-            <TouchableOpacity onPress={this.filterFriends.bind(this)} style={styles.button}>
-              <Text style={styles.buttonText}>Friends</Text>
+          <View style={styles.innerNav}>
+            <TouchableOpacity onPress={this.filterFriends.bind(this)} style={this.state.friendS}>
+              <Text style={styles.buttonText}>Search Friends</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.filterUsers.bind(this)} style={styles.button}>
+            <TouchableOpacity onPress={this.filterUsers.bind(this)} style={this.state.userS}>
               <Text style={styles.buttonText}>Search Users</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.filterRequests.bind(this)} style={styles.button}>
+            <TouchableOpacity onPress={this.filterRequests.bind(this)} style={this.state.requestS}>
               <Text style={styles.buttonText}>Friend Requests</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.flowRight}>
+          <View style={styles.inputContainer}>
             <TextInput
               style={styles.searchInput}
               placeholder='Search via name or email'
@@ -215,61 +302,3 @@ export default class Profile extends Component {
     )
   }
 };
-
-var styles = StyleSheet.create({
-  description: {
-    marginBottom: 10,
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#656565'
-  },
-  container: {
-    padding: 10,
-    marginTop: 10,
-    alignItems: 'center',
-  },
-  flowRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'stretch'
-  },
-  buttonText: {
-    fontSize: 14,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: 'red',
-    borderColor: 'red',
-    borderWidth: 1,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    marginRight: 2
-  },
-  searchInput: {
-    height: 36,
-    padding: 4,
-    marginRight: 5,
-    flex: 4,
-    fontSize: 18,
-    borderWidth: 1,
-    borderColor: 'grey',
-    color: 'black',
-  },
-  image: {
-    borderRadius: 100,
-    height:200,
-    width:200,
-    marginRight:10,
-    marginBottom: 20
-  },
-  spinner: {
-    padding: 30,
-    marginTop: 200,
-    alignItems: 'center'
-  }
-});
