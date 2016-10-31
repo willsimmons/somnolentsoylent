@@ -123,7 +123,13 @@ export default class Feed extends Component {
         <ScrollView>
           {this.state.events.map( (event, index) => <EventCard key={index} openModal={this.openEvent.bind(this)} event={event} index={index}/>)}
         </ScrollView>
-        <NewEventFab onPress={this.openModal.bind(this)}/>
+        <NewEventFab onPress={
+          () => {
+            this.props.navigator.resetTo({
+              name: 'Map'
+            });
+          }
+        }/>
         {this.getModal()}
         <NewEventModal visibility={this.state.addEventModal}/>
       </OurDrawer>
