@@ -20,7 +20,11 @@ export default class Map extends Component {
     this.state = {
       loading: true,
       markers: null,
-      modalVisible: false
+      modalVisible: false,
+      x: {
+        latitude: this.props.mongoLocation[1] + .005,
+        longitude: this.props.mongoLocation[0] + .005
+      }
     };
   }
   componentWillMount () {
@@ -41,7 +45,7 @@ export default class Map extends Component {
       this.setState({markers: data, loading: false})
     })
     .catch((err) => {
-      console.error(err);
+      console.log(err);
     })
   }
   openModal () {
@@ -70,6 +74,12 @@ export default class Map extends Component {
                 latitudeDelta: .04,
                 longitudeDelta: .02
             }}>
+            <MapView.Marker draggable
+              coordinate={this.state.x}
+              pinColor='yellow'
+              title='The location of your next event!'
+              onDragEnd={(e) => this.setState({ x: e.nativeEvent.coordinate })}
+            />
             {this.state.markers.map(marker => {
               var tempLoc = {
                 latitude: marker.location[1],
@@ -86,7 +96,7 @@ export default class Map extends Component {
             })}
             </MapView>
             <NewEventFab onPress={this.openModal.bind(this)}/>
-            <NewEventModal visibility={this.state.modalVisible}/>
+            <NewEventModal userId={this.props.user._id} eventCoords={this.state.x} modalVisibility={this.state.modalVisible}/>
           </View>
         </OurDrawer>
       )
