@@ -215,7 +215,9 @@ const styles = StyleSheet.create({
   textInputContainer: {
     justifyContent:'center',
     alignItems:'center',
-    margin: 10
+    margin: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F44336'
   },
   textInput: {
     flex:1,
@@ -224,9 +226,9 @@ const styles = StyleSheet.create({
     marginRight: 5,
     flex: 4,
     fontSize: 18,
-    borderWidth: 1,
-    borderColor: 'grey',
-    textAlign: 'center'
+    // borderWidth: 1,
+    // borderColor: 'grey',
+    textAlign: 'left'
   },
   friendsCheckGroup: {
     flexDirection: 'row',
@@ -260,7 +262,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: 'red',
+    backgroundColor: '#F44336',
     width: 150,
     height: 40,
   }
