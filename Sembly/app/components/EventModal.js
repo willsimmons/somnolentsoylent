@@ -6,6 +6,7 @@ import {
   Text,
   View,
   Image,
+  Dimensions,
   TouchableOpacity
 } from 'react-native';
 
@@ -18,6 +19,9 @@ export default class EventModal extends Component {
   constructor (props) {
     super(props);
     this.state = {visible: false, loading: true};
+  }
+  componentWillMount() {
+  	this.setState({loading:true})
   }
   getEvent() {
   	fetch('http://localhost:3000/api/events/' + this.props.event)
@@ -74,33 +78,31 @@ export default class EventModal extends Component {
   	if (this.state.users.length === 0) {
   		return (<Text>No Users</Text>)
   	} else {
-  		return this.state.users.map((user, index) => <UserCard user={user} index={index} freinds={'users'} />);
+  		return this.state.users.map((user, index) => <UserCard user={user} index={index} friends={'users'} />);
   	}
   }
   getRender () {
-  	if (this.state.loading === true && this.props.visibility) {
+  	if (this.state.loading === true) {
   		this.getEvent();
-  		return (<Spinner/>)
-  	} else if (this.state.loading) {
   		return (<Spinner/>)
   	} else {
   		return (
   			<View>
+	  			<Image style={styles.image} source={{uri: this.state.event.image}}/>
   				<View>
-	  				<Image source={{uri: this.state.event.image}}/>
-	  				<Text>{this.state.event.name}</Text>
+	  				<Text style={styles.title} >{this.state.event.name}</Text>
   				</View>
   				<View>
-  				  <Text>{this.state.event.startTime}</Text>
+  				  <Text style={styles.description}>{this.state.event.startTime}</Text>
   				</View>
-  				<View>
-  					<TouchableOpacity onPress={e => this.saveEvent()}><Text>Save Event!</Text></TouchableOpacity>
-  					<TouchableOpacity onPress={e => this.checkIn()}><Text>Check In!</Text></TouchableOpacity>
+  				<View style={styles.flowRight}>
+  					<TouchableOpacity style={styles.button} onPress={e => this.saveEvent()}><Text style={styles.buttonText}>Save Event!</Text></TouchableOpacity>
+  					<TouchableOpacity style={styles.button} onPress={e => this.checkIn()}><Text style={styles.buttonText}>Check In!</Text></TouchableOpacity>
   				</View>
-  				<View>
-  					<TouchableOpacity onPress={e => this.changeUsers('invited')}><Text>Invited</Text></TouchableOpacity>
-  					<TouchableOpacity onPress={e => this.changeUsers('saved')}><Text>Saved</Text></TouchableOpacity>
-  					<TouchableOpacity onPress={e => this.changeUsers('checkedin')}><Text>Checked In</Text></TouchableOpacity>
+  				<View style={styles.flowRight}>
+  					<TouchableOpacity style={styles.button} onPress={e => this.changeUsers('invited')}><Text style={styles.buttonText}>Invited</Text></TouchableOpacity>
+  					<TouchableOpacity style={styles.button} onPress={e => this.changeUsers('saved')}><Text style={styles.buttonText}>Saved</Text></TouchableOpacity>
+  					<TouchableOpacity style={styles.button} onPress={e => this.changeUsers('checkedin')}><Text style={styles.buttonText}>Checked In</Text></TouchableOpacity>
   				</View>
   				<View>
   				{this.getUsers()}
@@ -112,12 +114,14 @@ export default class EventModal extends Component {
   render () {
     let context = this;
     return (
-      <Modal ref={'EventModal'} style={styles.modal} isOpen={this.props.visibility}>
+      <Modal ref={'EventModal'} style={styles.modal} isOpen={true}>
         <View style={styles.container}>
           {this.getRender()}
-          <TouchableOpacity onPress={() => {context.setState({loading: true}); context.refs.EventModal.close()}}>
-            <Icon style={styles.closeButton} name='close'/>
-          </TouchableOpacity>
+          <View style={styles.absoluteX}>
+	          <TouchableOpacity onPress={() => {this.props.close(); context.refs.EventModal.close()}}>
+	            <Icon style={styles.closeButton} name='close'/>
+	          </TouchableOpacity>
+          </View>
         </View>
       </Modal>
     )
@@ -133,7 +137,66 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center'
   },
-  closeButton:{
-    fontSize: 30
+  title: {
+  	fontSize: 40,
+  	color: 'black',
+  	alignSelf: 'center'
+  },
+  absolute: {
+    position: 'absolute',
+    top: 40,
+    left: 15
+  },
+  absoluteX: {
+    position: 'absolute',
+    top: 10,
+    right: 15,
+  },
+    closeButton:{
+    fontSize: 30,
+    zIndex: 3
+  },
+  description: {
+    marginBottom: 10,
+    fontSize: 18,
+    textAlign: 'center',
+    color: '#656565'
+  },
+  flowRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'stretch'
+  },
+  buttonText: {
+    fontSize: 14,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'red',
+    borderColor: 'red',
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
+  searchInput: {
+    height: 36,
+    padding: 4,
+    marginRight: 5,
+    flex: 4,
+    fontSize: 18,
+    borderColor: 'grey',
+    borderRadius: 8,
+    color: 'black',
+  },
+  image: {
+    height:200, 
+    width: Dimensions.get('window').width,
+    marginBottom: 20,
+    zIndex: 1
   }
 })
