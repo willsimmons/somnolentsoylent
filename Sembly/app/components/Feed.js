@@ -119,7 +119,7 @@ export default class Feed extends Component {
     return (
       <OurDrawer topBarFilterVisible={false} topBarName={this.props.name} _navigate={_navigate.bind(this)}>
         <ScrollView>
-          {this.state.events.map( (event, index) => <EventCard openModal={this.openEvent.bind(this)} event={event} index={index}/>)}
+          {this.state.events.map( (event, index) => <EventCard key={index} openModal={this.openEvent.bind(this)} event={event} index={index}/>)}
         </ScrollView>
         <NewEventFab onPress={this.openModal.bind(this)}/>
         {this.getModal()} 

@@ -79,7 +79,7 @@ export default class EventModal extends Component {
   	if (this.state.users.length === 0) {
   		return (<Text>No Users</Text>)
   	} else {
-  		return this.state.users.map((user, index) => <UserCard user={user} index={index} friends={'users'} />);
+  		return this.state.users.map((user, index) => <UserCard key={index} user={user} index={index} friends={'users'} />);
   	}
   }
   getRender () {
