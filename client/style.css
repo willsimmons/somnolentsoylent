@@ -37,3 +37,46 @@ html {
 .landing h2 {
 	margin-top: 0px;
 }
+
+.article {
+	margin-top: 75px;
+	width:70%;
+	margin-right:auto;
+	margin-left:auto;
+}
+
+.image {
+	float: left;
+	width:50%;
+}
+
+.phone {
+	width:inherit;
+	height: auto;
+	border-radius:20px;
+	margin-bottom:75px;
+}
+
+.parrallax {
+	margin-top:75px;
+	background-image: url('landing.jpeg');
+	background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	height: 300px;
+	width: 100%;
+	color: white;
+	text-align:center;
+	clear:both;
+}
+
+.parrallax h1 {
+	line-height:300px;
+}
+
+.text {
+	width:40%;
+	float:left;
+}
+
