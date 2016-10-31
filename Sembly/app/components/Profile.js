@@ -248,10 +248,10 @@ export default class Profile extends Component {
         <View style={styles.container}>
           <Image style={styles.image} source={{uri: this.props.user.photoUrl}}/>
           <Text style={styles.description}>
-            Name: {this.props.user.firstName + ' ' + this.props.user.lastName}
+            {this.props.user.firstName + ' ' + this.props.user.lastName}
           </Text>
           <Text style={styles.description}>
-            Email: {this.props.user.email}
+            {this.props.user.email}
           </Text>
           <View style={styles.innerNav}>
             <TouchableOpacity onPress={this.filterFriends.bind(this)} style={this.state.friendS}>
