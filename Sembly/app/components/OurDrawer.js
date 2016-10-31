@@ -23,7 +23,7 @@ export default class OurDrawer extends Component{
       <Drawer
         ref={(ref) => this._drawer = ref}
         type="overlay"
-        content={<Menu _navigate={this.props._navigate}/>}
+        content={<Menu user={this.props.user} _navigate={this.props._navigate}/>}
         tapToClose={true}
         open={false}
         openDrawerOffset={0.3}
@@ -43,7 +43,7 @@ export default class OurDrawer extends Component{
 
 const drawerStyles = {
   drawer: {
-  backgroundColor: 'red', 
+  backgroundColor: 'white', 
   shadowColor: '#000000', 
   shadowOpacity: 0.8, 
   shadowRadius: 3,

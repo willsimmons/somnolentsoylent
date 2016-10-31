@@ -156,7 +156,7 @@ export default class Profile extends Component {
 
 
     return (
-      <OurDrawer topBarName={'Profile'} _navigate={_navigate.bind(this)}>
+      <OurDrawer user={this.props.user} topBarName={'Profile'} _navigate={_navigate.bind(this)}>
         <View style={styles.container}>
           <Image style={styles.image} source={{uri: this.props.user.photoUrl}}/>
           <Text style={styles.description}>
@@ -192,6 +192,7 @@ export default class Profile extends Component {
             (friend, index) => { 
               return (
                 <UserCard 
+                  key={index}
                   refreshUserFriends={
                     ()=> {
                       this.setState({view: 'Friends'});
