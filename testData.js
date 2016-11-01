@@ -89,17 +89,17 @@ mongoose.connection.on('connected', () => {
   //Populate Database
   User.remove({}).exec()
   .then(() => {
-    return Event.remove({}).exec()
+    return Event.remove({}).exec();
   })
   .then(()=> {
     users = users.map(user => new User(user));
-    return User.create(users)
+    return User.create(users);
   })
   .then(users => {
     console.log('Test User id = ', users[0]._id);
     users.forEach(user => {
       userIds.push(user._id);
-    })
+    });
     events[0].invitedUsers = userIds;
     events[1].invitedUsers = userIds;
     events[4].invitedUsers = userIds;
@@ -111,13 +111,13 @@ mongoose.connection.on('connected', () => {
   .then(event => {
     return eventModels.saveEvent(event._id, users[0]._id)
   })
-  .then( success => {
+  .then(success => {
     return Promise.all([friendModels.addFriend(users[0]._id, users[2]._id), friendModels.addFriend(users[1]._id, users[0]._id), friendModels.addFriend(users[0]._id, users[3]._id)]) 
   })
-  .then( success => {
+  .then(success => {
     return Promise.all([friendModels.acceptFriend(users[2]._id, users[0]._id), friendModels.acceptFriend(users[3]._id, users[0]._id)])
   })
-  .then( success => {
+  .then(success => {
     console.log('Database populated');
     if (!process.env.MONGODB_URI) {
       process.exit();
@@ -126,5 +126,5 @@ mongoose.connection.on('connected', () => {
   .catch(error => {
     console.log(error);
     process.exit(1);
-  })
+  });
 });
