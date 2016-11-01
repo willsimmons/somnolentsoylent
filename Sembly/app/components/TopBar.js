@@ -5,11 +5,11 @@ import {
   Text,
   View,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 // <Text style={styles.menu}>Menu</Text>
 export default class TopBar extends Component {
   constructor(props){
-    super(props)
+    super(props);
   }
 
   render () {
@@ -23,7 +23,7 @@ export default class TopBar extends Component {
           { this.props.topBarFilterVisible ? <Icon name='filter-list' style={styles.content}></Icon> : <Text></Text> }
         </TouchableOpacity>
       </View>
-    )
+    );
   }
 }
 

@@ -16,7 +16,7 @@ import TopBar from './TopBar.js';
 
 export default class OurDrawer extends Component{
   constructor(props){
-    super(props)
+    super(props);
   }
 	render(){
 		return (

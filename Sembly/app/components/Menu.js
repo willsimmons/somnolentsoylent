@@ -18,8 +18,6 @@ export default class Menu extends Component {
     super(props);
   }
 
-        
-
   render(){
     return (
       <View style={styles.outer}>
@@ -64,15 +62,12 @@ export default class Menu extends Component {
           </TouchableOpacity>
         </View> 
       </View>
-
     );
   }
-
 }
 
 const styles = StyleSheet.create({
   outer: {
-
   },
   menuView: {
     borderStyle: 'solid',
@@ -116,31 +111,29 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
 	firstListTouchable: {
-		// borderStyle: 'solid',
-		// borderTopWidth: 2,
-  //   borderBottomWidth: 2,
-  //   borderColor: 'black',
-    // marginTop: 20,
+  // borderStyle: 'solid',
+  // borderTopWidth: 2,
+  // borderBottomWidth: 2,
+  // borderColor: 'black',
+  // marginTop: 20,
 	},
 	listTouchable: {
-		// borderStyle: 'solid',
-  //   borderBottomWidth: 1,
-  //   borderColor: 'black',
-    // marginTop: 10,
-
+  // borderStyle: 'solid',
+  // borderBottomWidth: 1,
+  // borderColor: 'black',
+  // marginTop: 10,
 	},
   listElem: {
     fontSize: 18,
     // fontWeight: 'bold',
     color: 'black',
     alignItems: 'center',
-
     // padding: 10,
     // paddingLeft: 80
-
   }
-})
-     //  <ListView
-     //    dataSource={this.state.dataSource}
-     //    renderRow={(item) => this._renderMenuItem(item)}
-    	// />
+});
+
+// <ListView
+//   dataSource={this.state.dataSource}
+//   renderRow={(item) => this._renderMenuItem(item)}
+// />

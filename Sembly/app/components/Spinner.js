@@ -25,4 +25,4 @@ const Spinner = MKSpinner.singleColorSpinner()
   .withStyle(styles.spinner)
   .build();
 
-export default Spinner
+export default Spinner;

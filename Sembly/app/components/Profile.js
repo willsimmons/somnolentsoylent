@@ -13,7 +13,7 @@ import {
 
 import Drawer from 'react-native-drawer';
 
-import Spinner from './Spinner.js'
+import Spinner from './Spinner.js';
 
 import TopBar from './TopBar.js';
 import OurDrawer from './OurDrawer.js';

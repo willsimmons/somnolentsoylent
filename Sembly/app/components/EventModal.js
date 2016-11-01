@@ -126,7 +126,7 @@ export default class EventModal extends Component {
     };
   }
   componentWillMount() {
-  	this.setState({loading:true})
+  	this.setState({loading:true});
   }
   transformDate(dateStr){
     var months = [ "January", "February", "March", "April", "May", "June",
@@ -151,7 +151,6 @@ export default class EventModal extends Component {
     part4.shift();
     part4.pop();
 
-
     return day + part1 + part2 + hour + ':' + part4 + amOrPm;
   }
   getEvent() {
@@ -173,19 +172,21 @@ export default class EventModal extends Component {
   			savedStyle: this.state.button,
   			invitedStyle: this.state.selected,
   			checkedStyle: this.state.button
-  		})
+  		});
   	} else if (type === 'saved') {
   		this.setState({
   			users: this.state.event.savedUsers,
   			savedStyle: this.state.selected,
   			invitedStyle: this.state.button,
-  			checkedStyle: this.state.button})
+  			checkedStyle: this.state.button
+      });
   	} else {
   		this.setState({
   			users: this.state.event.checkedInUsers,
   			savedStyle: this.state.button,
   			invitedStyle: this.state.button,
-  			checkedStyle: this.state.selected})
+  			checkedStyle: this.state.selected
+      });
   	}
   }
   saveEvent() {
@@ -220,7 +221,7 @@ export default class EventModal extends Component {
   }
   getUsers() {
   	if (this.state.users.length === 0) {
-  		return (<Text>No Users</Text>)
+  		return (<Text>No Users</Text>);
   	} else {
   		return this.state.users.map((user, index) => <UserCard key={index} user={user} index={index} friends={'users'} />);
   	}
@@ -228,7 +229,7 @@ export default class EventModal extends Component {
   getRender () {
   	if (this.state.loading === true) {
   		this.getEvent();
-  		return (<Spinner/>)
+  		return (<Spinner/>);
   	} else {
   		return (
   			<View>
@@ -252,7 +253,7 @@ export default class EventModal extends Component {
   				{this.getUsers()}
   				</ScrollView>
   			</View>
-  			)
+  			);
   	}
   }
   render () {
@@ -268,7 +269,7 @@ export default class EventModal extends Component {
           </View>
         </View>
       </Modal>
-    )
+    );
   }
 }
 

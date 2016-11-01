@@ -17,7 +17,7 @@ export default class UserCard extends Component {
 
     this.state = {
       view: this.props.view
-    }
+    };
   }
 
   addFriend() {
@@ -91,14 +91,14 @@ export default class UserCard extends Component {
   }
 
   render () {
-    var background = this.props.index % 2 === 0 ? '#F5FCFF' : '#fff'
+    var background = this.props.index % 2 === 0 ? '#F5FCFF' : '#fff';
     var message;
     if (this.props.friends === 'friends') {
-    	message = 'Remove '+ this.props.user.firstName +' from your friends list?'
+    	message = 'Remove '+ this.props.user.firstName +' from your friends list?';
     } else if (this.props.friends === 'users') {
-    	message = 'Request ' + this.props.user.firstName +' to your friends list?'
+    	message = 'Request ' + this.props.user.firstName +' to your friends list?';
     } else {
-    	message = 'Accept ' + this.props.user.firstName +'\'s friend request?'
+    	message = 'Accept ' + this.props.user.firstName +'\'s friend request?';
     }
     return (
       	  // <Modal>

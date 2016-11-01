@@ -8,9 +8,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-
-import Spinner from './Spinner.js'
-
+import Spinner from './Spinner.js';
 
 const styles = StyleSheet.create({
 container: {
@@ -40,7 +38,7 @@ button: {
 export default class LoginPage extends Component {
   constructor(props){
     super(props);
-    this.state = {loading: false}
+    this.state = {loading: false};
   }
 
   _navigate() {
@@ -66,12 +64,12 @@ export default class LoginPage extends Component {
      .then( user => {
        this.props.setUser(user);
        this._navigate();
-     })
+     });
    }
 
   render(){
     if (this.state.loading) {
-      return (<View style={styles.container}><Spinner/></View>)
+      return (<View style={styles.container}><Spinner/></View>);
     }
     else {
       return (

@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 
-
 export default class EventCard extends Component {
   constructor(props) {
     super(props);
@@ -45,12 +44,12 @@ export default class EventCard extends Component {
     var time;
     var stats = this.props.event.invitedUsers.length + ' Users invited  ' + this.props.event.savedUsers.length + ' Users Saved  ' + this.props.event.checkedInUsers.length + ' Users Checked In';
     if (this.props.event.startTime - Date.now() < 0) {
-      time = this.props.event.endTime
+      time = this.props.event.endTime;
     } else {
-      time = this.props.event.startTime
+      time = this.props.event.startTime;
     }
     var time = this.transformDate( time );
-    var background = this.props.index % 2 === 0 ? '#F5FCFF' : '#fff'
+    var background = this.props.index % 2 === 0 ? '#F5FCFF' : '#fff';
     return (
       <View>
         <TouchableOpacity onPress={e => this.props.openModal(this.props.event._id)} key={this.props.event._id} style={{
