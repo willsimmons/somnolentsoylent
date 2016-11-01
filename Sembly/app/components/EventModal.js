@@ -73,6 +73,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
+  },  
+  actionButton: {
+  	margin: 10,
+    height: 36,
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#F44336',
+    borderColor: '#F44336',
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
   },
   selected: {
     height: 36,
@@ -229,8 +240,8 @@ export default class EventModal extends Component {
   				  <Text style={styles.description}>{this.transformDate(this.state.event.startTime)}</Text>
   				</View>
   				<View style={styles.flowRight}>
-  					<TouchableOpacity style={styles.button} onPress={e => this.saveEvent()}><Text style={styles.buttonText}>Save Event!</Text></TouchableOpacity>
-  					<TouchableOpacity style={styles.button} onPress={e => this.checkIn()}><Text style={styles.buttonText}>Check In!</Text></TouchableOpacity>
+  					<TouchableOpacity style={styles.actionButton} onPress={e => this.saveEvent()}><Text style={styles.buttonText}>Save Event!</Text></TouchableOpacity>
+  					<TouchableOpacity style={styles.actionButton} onPress={e => this.checkIn()}><Text style={styles.buttonText}>Check In!</Text></TouchableOpacity>
   				</View>
   				<View style={styles.flowRight}>
   					<TouchableOpacity style={this.state.invitedStyle} onPress={e => this.changeUsers('invited')}><Text style={styles.buttonText}>Invited</Text></TouchableOpacity>
