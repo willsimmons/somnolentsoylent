@@ -18,7 +18,7 @@ import Feed from './Feed.js';
 export default class App extends Component {
   constructor(props) {
     super(props);
-    app = this
+    app = this;
   }
 
   getLocation() {
@@ -29,35 +29,34 @@ export default class App extends Component {
   }
 
   setUser(user) {
-    this.setState({user: user})
+    this.setState({user: user});
   }
 
   renderScene(route, navigator){
     if(route.name === 'LoginPage'){
-      return <LoginPage getLocation={app.getLocation.bind(app)} setUser={app.setUser.bind(app)} navigator={navigator}/>
+      return <LoginPage getLocation={app.getLocation.bind(app)} setUser={app.setUser.bind(app)} navigator={navigator}/>;
     }
 
     if(route.name === 'Profile') {
-      return <Profile user={app.state.user} navigator={navigator}/>
+      return <Profile user={app.state.user} navigator={navigator}/>;
     }
     if(route.name === 'Map') {
-      return <Map user={app.state.user} mongoLocation={app.state.mongoLocation} navigator={navigator}/>
+      return <Map user={app.state.user} mongoLocation={app.state.mongoLocation} navigator={navigator}/>;
     }
     if(route.name === 'Feed') {
-      return <Feed name={route.name} user={app.state.user} mongoLocation={app.state.mongoLocation} page={'bundle'} navigator={navigator}/>
+      return <Feed name={route.name} user={app.state.user} mongoLocation={app.state.mongoLocation} page={'bundle'} navigator={navigator}/>;
     }
     if(route.name === 'Invites') {
-      return <Feed name={'Invited To'} user={app.state.user} page={'invited'} navigator={navigator}/>
+      return <Feed name={'Invited To'} user={app.state.user} page={'invited'} navigator={navigator}/>;
     }
     if(route.name === 'Saved') {
-      return <Feed name={route.name} user={app.state.user} page={'saved'} navigator={navigator}/>
+      return <Feed name={route.name} user={app.state.user} page={'saved'} navigator={navigator}/>;
     }
   }
 
   configureScene(route, routeStack){
    return Navigator.SceneConfigs.FadeAndroid;
   }
-
 
   render () {
     return (
@@ -66,10 +65,9 @@ export default class App extends Component {
         style={styles.container}
         initialRoute={{name: 'LoginPage'}}
         renderScene={this.renderScene}/>
-    )
+    );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

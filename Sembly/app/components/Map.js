@@ -8,7 +8,7 @@ import {
   Dimensions
 } from 'react-native';
 
-import Spinner from './Spinner.js'
+import Spinner from './Spinner.js';
 
 import MapView from 'react-native-maps';
 import NewEventModal from './NewEventModal.js';
@@ -28,9 +28,9 @@ export default class Map extends Component {
 
   setNewEventPinCoords () {
     this.setState({x: {
-      latitude: this.props.mongoLocation[1] + .0005,
-      longitude: this.props.mongoLocation[0] + .0005
-    } })
+      latitude: this.props.mongoLocation[1] + 0.0005,
+      longitude: this.props.mongoLocation[0] + 0.0005
+    }});
   }
 
   fetchEvents () {
@@ -45,22 +45,22 @@ export default class Map extends Component {
       })
     })
     .then(data => {
-      return data.json()
+      return data.json();
     })
     .then(data => {
       console.log('inside fetchEvents', data);
-      this.setState({markers: data, loading: false})
+      this.setState({markers: data, loading: false});
     })
     .catch((err) => {
       console.log(err);
-    })
+    });
   }
   componentWillMount () {
     this.setNewEventPinCoords();
     this.fetchEvents();
   }
   openModal () {
-    this.setState({modalVisible: true})
+    this.setState({modalVisible: true});
   }
   render () {
     if(this.state.loading){
@@ -70,7 +70,7 @@ export default class Map extends Component {
             <Spinner />
           </View>
         </OurDrawer>
-      )
+      );
     }
     else {
       return (
@@ -103,14 +103,14 @@ export default class Map extends Component {
                   title={marker.name}
                   pinColor='blue'
                 />
-              )
+              );
             })}
             </MapView>
             <NewEventFab onPress={this.openModal.bind(this)}/>
             <NewEventModal resetPin={this.setNewEventPinCoords.bind(this)} fetchNewEvents={this.fetchEvents.bind(this)} userId={this.props.user._id} eventCoords={this.state.x} modalVisibility={this.state.modalVisible}/>
           </View>
         </OurDrawer>
-      )
+      );
     }
   }
 }

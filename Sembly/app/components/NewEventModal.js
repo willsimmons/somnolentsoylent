@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import Modal from 'react-native-modalbox';
-import { MKCheckbox, MKButton } from 'react-native-material-kit'
+import { MKCheckbox, MKButton } from 'react-native-material-kit';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class NewEventModal extends Component {
@@ -23,7 +23,7 @@ export default class NewEventModal extends Component {
       newEventStartTime: new Date(),
       newEventTags: '',
       errorText: ''
-    }
+    };
   }
 
   componentWillMount () {
@@ -48,7 +48,7 @@ export default class NewEventModal extends Component {
 
     let context = this;
     if(this.state.newEventName === ''){
-      this.setState({errorText: 'Please enter an event name!'})
+      this.setState({errorText: 'Please enter an event name!'});
       return;
     }
 
@@ -60,24 +60,24 @@ export default class NewEventModal extends Component {
       tags: [],
       invitedUsers: [],
       visibility: ''
-    }
+    };
 
     eventToBePosted.location[0] = this.props.eventCoords.longitude;
     eventToBePosted.location[1] = this.props.eventCoords.latitude;
 
     if(this.refs.visibilityCheckbox.state.checked) {
-      eventToBePosted.visibility = 'invite'
+      eventToBePosted.visibility = 'invite';
     } else {
-      eventToBePosted.visibility = 'public'
+      eventToBePosted.visibility = 'public';
     }
 
     eventToBePosted.tags = this.state.newEventTags.split(' ');
 
     this.state.friends.forEach((friend, index) => {
       if(this.refs['friend' + index].state.checked){
-        eventToBePosted.invitedUsers.push(this.refs['friend' + index].props.friendCheckId)
+        eventToBePosted.invitedUsers.push(this.refs['friend' + index].props.friendCheckId);
       }
-    })
+    });
 
     fetch('http://localhost:3000/api/events',{
       method: 'POST',
@@ -90,12 +90,12 @@ export default class NewEventModal extends Component {
         newEventName: '',
         newEventStartTime: new Date(),
         newEventTags: '',
-      })
+      });
       setTimeout(() => {
-        context.refs.newEventModal.close()
+        context.refs.newEventModal.close();
         context.setState({
           errorText: ''
-        })
+        });
       }, 1000);
       this.props.resetPin();
       this.props.fetchNewEvents();

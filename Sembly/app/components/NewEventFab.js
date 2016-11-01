@@ -40,4 +40,4 @@ const ColoredFab = MKButton.coloredFab()
   .withBackgroundColor(MKColor.Indigo)
   .build();
 
-module.exports = ColoredFab
+module.exports = ColoredFab;

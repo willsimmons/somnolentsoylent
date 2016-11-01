@@ -9,7 +9,7 @@ import {
   ScrollView
 } from 'react-native';
 
-import Spinner from './Spinner.js'
+import Spinner from './Spinner.js';
 
 import Drawer from 'react-native-drawer';
 import NewEventModal from './NewEventModal.js';
@@ -31,13 +31,12 @@ export default class Feed extends Component {
       loading: true,
       eventModal: false,
       addEventModal: false
-    }
+    };
   }
   componentWillMount() {
     if (this.props.page === 'bundle') {
-      this.getBundle()
-    }
-    else if (this.props.page === 'invited') {
+      this.getBundle();
+    } else if (this.props.page === 'invited') {
       this.getInvited();
     } else if (this.props.page === 'saved') {
       this.getSaved();
@@ -102,9 +101,9 @@ export default class Feed extends Component {
   }
   getModal() {
     if (this.state.eventModal) {
-      return <EventModal close={this.closeEvent.bind(this)} user={this.props.user} visibility={this.state.eventModal} event={this.state.eventId}/>
+      return (<EventModal close={this.closeEvent.bind(this)} user={this.props.user} visibility={this.state.eventModal} event={this.state.eventId}/>);
     } else {
-      return (<View></View>)
+      return (<View></View>);
     }
   }
 
@@ -116,7 +115,7 @@ export default class Feed extends Component {
             <Spinner />
           </View>
         </OurDrawer>
-        )
+        );
     }
     return (
       <OurDrawer user={this.props.user} topBarFilterVisible={false} topBarName={this.props.name} _navigate={_navigate.bind(this)}>
@@ -133,18 +132,18 @@ export default class Feed extends Component {
         {this.getModal()}
         <NewEventModal visibility={this.state.addEventModal}/>
       </OurDrawer>
-    )
+    );
   }
 };
 
- const drawerStyles = {
-  drawer: {
-  backgroundColor: 'red',
-  shadowColor: '#000000',
-  shadowOpacity: 0.8,
-  shadowRadius: 3,
+const drawerStyles = {
+    drawer: {
+    backgroundColor: 'red',
+    shadowColor: '#000000',
+    shadowOpacity: 0.8,
+    shadowRadius: 3,
   }
-}
+};
 
 const styles = StyleSheet.create({
   listElem: {
@@ -158,8 +157,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     width: 225,
     padding: 10,
-    paddingLeft: 80
-
+    paddingLeft: 80,
   },
   button: {
     fontSize: 20,
