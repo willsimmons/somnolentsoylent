@@ -6,7 +6,9 @@
   "scripts": {
     "test": "mocha ./specs",
     "start": "node server/server.js production",
-    "populate": "node testData.js"
+    "populate": "node testData.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -28,7 +30,8 @@
     "mongoose": "^4.6.4",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-tap-event-plugin": "^1.0.0"
+    "react-tap-event-plugin": "^1.0.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "babel-core": "^6.17.0",
@@ -39,5 +42,6 @@
     "sinon": "^1.17.6",
     "supertest": "^2.0.1",
     "webpack": "^1.13.2"
-  }
+  },
+  "snyk": true
 }
