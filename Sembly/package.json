@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "react": "15.3.2",
-    "react-native": "0.36.0",
+    "react-native": "0.39.1",
     "react-native-button": "^1.7.1",
     "react-native-drawer": "^2.3.0",
     "react-native-maps": "^0.11.0",
